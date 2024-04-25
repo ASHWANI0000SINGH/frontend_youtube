@@ -3,7 +3,7 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
+import Cookies from "js-cookie";
 interface FormData {
   email: string;
   password: string;
@@ -26,9 +26,15 @@ const Page: React.FC = () => {
       // formDataToSend.append("password", formData.password);
       const result = await axios.post(
         "http://localhost:5000/api/v1/users/login",
-        formData
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
-      console.log("Registration successful", result);
+      console.log("Registration successful", result.data);
+      localStorage.setItem("accessToken", result.data.user.accessToken);
     } catch (error) {
       console.error("Error registering user:", error);
     }

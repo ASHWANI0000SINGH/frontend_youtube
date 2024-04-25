@@ -1,0 +1,19 @@
+.sidenav {
+  margin-top: 5rem;
+  height: 100%;
+  width: 10%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  transition: 0.5s ease;
+  overflow-x: hidden;
+  /* padding-top: 20px; */
+  display: flex;
+  flex-direction: column;
+  align-items: first baseline;
+  padding-left: 10px;
+  font-size: large;
+  font-size: 10px !important;
+  background-color: green;
+}

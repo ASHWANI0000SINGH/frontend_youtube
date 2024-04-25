@@ -1,21 +1,31 @@
 import React from "react";
 import { Button } from "../ui/button";
+import style from "./sidenavbar.module.css";
+import HomeIcon from "@mui/icons-material/Home";
+import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
+import YouTubeIcon from "@mui/icons-material/YouTube";
 
 const SideNavbar = () => {
   return (
     <>
-      <div className=" w-1/12 h-screen bg-slate-50  flex  flex-col justify-start   px-5 gap-y-10  justify-items-center">
-        <div className=" ">
-          <p className="text-xs">Home</p>
+      <div className={style.sidenav}>
+        <div className="m-2">
+          <HomeIcon /> <br />
+          <p className="text-center">Home</p>
         </div>
-        <div className="  ">
-          <p className="text-xs">shorts</p>
+        <div className=" m-2 ">
+          <SubscriptionsIcon /> <br />
+          <p className="">shorts</p>
         </div>
-        <div className=" ">
-          <p className="text-xs">Subscriptions</p>
+
+        <div className=" m-2 ">
+          <SubscriptionsIcon /> <br />
+          <p className="text-wrap">Subscriptions</p>
         </div>
-        <div className=" ">
-          <p className="text-xs">You</p>
+
+        <div className=" m-2">
+          <YouTubeIcon /> <br />
+          <p className="text-center">You</p>
         </div>
       </div>
     </>

@@ -3,6 +3,7 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useRouter } from "next/navigation";
 
 interface FormData {
   username: string;
@@ -22,6 +23,7 @@ const Page: React.FC = () => {
     avatar: null,
     coverImage: null,
   });
+  const router = useRouter();
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -51,6 +53,9 @@ const Page: React.FC = () => {
         "http://localhost:5000/api/v1/users/register",
         formDataToSend
       );
+      if (result.data) {
+        router.push("/login");
+      }
       console.log("Registration successful", result);
     } catch (error) {
       console.error("Error registering user:", error);
