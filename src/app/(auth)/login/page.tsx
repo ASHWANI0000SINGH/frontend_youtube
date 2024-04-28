@@ -4,6 +4,8 @@ import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
+
 interface FormData {
   email: string;
   password: string;
@@ -14,6 +16,8 @@ const Page: React.FC = () => {
     email: "",
     password: "",
   });
+  const router = useRouter();
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -33,6 +37,8 @@ const Page: React.FC = () => {
           },
         }
       );
+      router.push("/");
+
       console.log("Registration successful", result.data);
       localStorage.setItem("accessToken", result.data.user.accessToken);
     } catch (error) {

@@ -32,7 +32,7 @@ export default function Home() {
       ) : (
         <>
           <div className=" ml-5 font-bold mt-5 text-black">
-            <p className="text-center">Succesfully logged In</p>
+            {/* <p className="text-center">Succesfully logged In</p> */}
           </div>
           <div className="video-container">
             <AllVideo />

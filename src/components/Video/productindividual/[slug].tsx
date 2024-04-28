@@ -1,15 +1,32 @@
-import React, { useState } from "react";
-import { VideoType } from "../AllVideo/AllVideo";
-import { Card, CardDescription, CardTitle } from "../ui/card";
+import React, { useEffect, useState } from "react";
 import { CardHeader } from "@mui/material";
 import Image from "next/image";
 import ReactPlayer from "react-player";
-import { useRouter } from "next/navigation";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { VideoType } from "@/components/AllVideo/AllVideo";
 
 const Video = ({ videoData }: VideoType) => {
-  const [date, setDate] = useState(null);
-  console.log("video from video comp", videoData);
+  const [videoData, setVideoData] = useState<VideoType[]>([]);
   const router = useRouter();
+  const { id } = router.query;
+  console.log("id", id);
+  useEffect(() => {
+    const getVideoWithId = async () => {
+      const result = await axios(
+        `http://localhost:5000/api/v1/video/video/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+      console.log(result.data.data);
+      setVideoData(result.data.data);
+      console.log("checking");
+    };
+    getVideoWithId();
+  }, []);
   const dateOnVideoUploaded = (createdAt: string) => {
     const uploadDate = new Date(createdAt);
     const month = ("0" + (uploadDate.getMonth() + 1)).slice(-2); // Format month (01 - 12)

@@ -1,0 +1,12 @@
+/* #E5E5E5 */
+.navbar_title {
+  background-color: #e5e5e5;
+}
+.navbar_box {
+  /* background-color: green; */
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  margin-left: 160px;
+}

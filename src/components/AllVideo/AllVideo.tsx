@@ -2,23 +2,20 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Video from "../Video/Video";
+import { FormDataType } from "@/app/(auth)/signup/page";
 
-export type VideoType = {
+export interface VideoType {
   createdAt: string;
   duration: number;
-  owner: ownerType;
+  owner: string;
   thumbnail: string;
   title: string;
   updatedAt: string;
   videoFile: string;
   _id: string;
-};
-export type ownerType = {
-  avatar: string;
-  fullName: string;
-  username: string;
-  _id: string;
-};
+  users: FormDataType[];
+}
+
 const AllVideo = () => {
   const [videoData, setVideoData] = useState<VideoType[]>([]);
   useEffect(() => {
@@ -40,7 +37,25 @@ const AllVideo = () => {
 
   return (
     <div className="text-center">
-      AllVideo
+      {/* <div className="flex justify-between p-10 sticky top-10 z-50">
+        <div>All</div>
+        <div>All</div>
+        <div>All</div>
+        <div>All</div>
+        <div>All</div>
+        <div>All</div>
+        <div>All</div>
+        <div>All</div>
+        <div>All</div>
+        <div>All</div>
+        <div>All</div>
+        <div>All</div>
+        <div>All</div>
+        <div>All</div>
+        <div>All</div>
+        <div>All</div>
+        <div>All</div>
+      </div> */}
       <div>
         <Video videoData={videoData} />
       </div>

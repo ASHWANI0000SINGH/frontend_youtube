@@ -5,23 +5,23 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 
-interface FormData {
+export interface FormDataType {
   username: string;
   email: string;
   fullName: string;
   password: string;
-  avatar: File | null;
-  coverImage: File | null;
+  avatar: File | string;
+  coverImage: File | string;
 }
 
 const Page: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<FormDataType>({
     username: "",
     email: "",
     fullName: "",
     password: "",
-    avatar: null,
-    coverImage: null,
+    avatar: "",
+    coverImage: "",
   });
   const router = useRouter();
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
