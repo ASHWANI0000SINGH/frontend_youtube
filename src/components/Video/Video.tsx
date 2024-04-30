@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { VideoType } from "../AllVideo/AllVideo";
 import { Card, CardDescription, CardTitle } from "../ui/card";
 import { CardHeader } from "@mui/material";
@@ -6,11 +6,13 @@ import Image from "next/image";
 import ReactPlayer from "react-player";
 import { useRouter } from "next/navigation";
 import styles from "./video.module.css";
+import { UserContext } from "@/app/provider";
 
 const Video = ({ videoData }: VideoType) => {
   const [date, setDate] = useState(null);
   const [allowloop, setAllowLoop] = useState(false);
-  console.log("video from video comp", videoData);
+  let loggedInUser = useContext(UserContext);
+  console.log("logged in user from nav", loggedInUser);
   const router = useRouter();
   const dateOnVideoUploaded = (createdAt: string) => {
     const uploadDate = new Date(createdAt);

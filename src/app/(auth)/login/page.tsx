@@ -1,10 +1,11 @@
 "use client";
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent, createContext } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+import { FormDataType } from "../signup/page";
 
 interface FormData {
   email: string;
@@ -16,6 +17,8 @@ const Page: React.FC = () => {
     email: "",
     password: "",
   });
+  // const [loggedInUser, setLoggedInUser] = useState<FormDataType | null>(null);
+
   const router = useRouter();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -37,9 +40,14 @@ const Page: React.FC = () => {
           },
         }
       );
-      router.push("/");
-
       console.log("Registration successful", result.data);
+      console.log("user", result.data.user.loggedInUser);
+
+      router.push("/");
+      localStorage.setItem(
+        "loggedInUser",
+        JSON.stringify(result.data.user.loggedInUser)
+      );
       localStorage.setItem("accessToken", result.data.user.accessToken);
     } catch (error) {
       console.error("Error registering user:", error);
@@ -68,7 +76,7 @@ const Page: React.FC = () => {
           onChange={handleChange}
         />
         <br />
-        <Button type="submit">Login</Button>
+        <button type="submit">Login</button>
       </form>
     </div>
   );

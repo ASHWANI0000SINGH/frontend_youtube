@@ -28,9 +28,7 @@ const AllVideo = () => {
           },
         }
       );
-      console.log(result.data.data);
       setVideoData(result.data.data);
-      console.log("checking");
     };
     getAllVideo();
   }, []);

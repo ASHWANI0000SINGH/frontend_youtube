@@ -39,7 +39,6 @@ const VideoPage = () => {
     item: string;
   }>();
 
-  console.log(params.id);
   useEffect(() => {
     const getAllVideo = async () => {
       const result = await axios(
@@ -50,17 +49,12 @@ const VideoPage = () => {
           },
         }
       );
-      console.log(result.data);
       setVideoData(result.data.data[0]);
       setUser(result.data.data[1]);
       setLoading(false);
-
-      console.log("checking type", typeof videodata?.videoFile);
     };
     getAllVideo();
   }, [params.id, videodata?.videoFile]);
-  console.log("user", user);
-  console.log("video file", videodata?.videoFile);
   if (loading) {
     return <p className="text-center">Loading...</p>;
   }
