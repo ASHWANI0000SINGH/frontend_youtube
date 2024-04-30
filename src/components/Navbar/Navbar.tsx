@@ -43,7 +43,7 @@ const Navbar = () => {
             </h1>
           </div>
         </div>
-        <div className="flex flex-col   ">
+        {/* <div className="flex flex-col   ">
           <div className={`${styles.navbar_box} flex justify-center gap-10 `}>
             <button
               className={`${styles.navbar_title} border m-2 p-1 rounded text-md font-medium`}
@@ -87,7 +87,7 @@ const Navbar = () => {
               {">"}
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

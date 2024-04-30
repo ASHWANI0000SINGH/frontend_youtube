@@ -5,9 +5,11 @@ import { CardHeader } from "@mui/material";
 import Image from "next/image";
 import ReactPlayer from "react-player";
 import { useRouter } from "next/navigation";
+import styles from "./video.module.css";
 
 const Video = ({ videoData }: VideoType) => {
   const [date, setDate] = useState(null);
+  const [allowloop, setAllowLoop] = useState(false);
   console.log("video from video comp", videoData);
   const router = useRouter();
   const dateOnVideoUploaded = (createdAt: string) => {
@@ -33,24 +35,13 @@ const Video = ({ videoData }: VideoType) => {
                     autoPlay
                     loop
                     muted
-                    className="w-80 h-44 border border-green-300 rounded bg-red "
+                    className={`${styles.videocontrooler} w-80 h-44 border rounded  `}
                     onClick={() => routeToIndividualVideo(item)}
-                    // style={{
-                    //   width: "300px",
-                    //   height: "200px",
-                    //   marginTop: "-15px",
-                    // }}
                   >
-                    <source src={item.videoFile} />
+                    <source src={item.videoFile} type="video/mp4" />
                   </video>
 
-                  {/* <ReactPlayer
-                    width="530px"
-                    height="300px"
-                    url={item.videoFile}
-                    light="/static/normal-sarong-0007.jpg"
-                  /> */}
-                  <div className="">
+                  <div className="flex flex-col border border-black-200 rounded ">
                     <div className="flex justify-start ">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
