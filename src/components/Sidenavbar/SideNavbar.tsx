@@ -12,7 +12,6 @@ const SideNavbar = () => {
   const router = useRouter();
 
   let loggedInUser = useContext(UserContext);
-  console.log("logged in user from navbar", loggedInUser);
   const gotoHome = () => {
     router.push("/");
   };

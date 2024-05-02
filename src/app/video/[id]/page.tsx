@@ -61,60 +61,58 @@ const VideoPage = () => {
 
   return (
     <>
-      <Suspense fallback={<p className="bg-red-900">Loading...</p>}>
-        <div className="flex mx-20 p-4  h-screen  justify-center">
-          <div className=" text-center margin-auto  ">
-            {videodata && (
-              <video autoPlay loop muted controls className={`   h-2/3 `}>
-                <source src={videodata?.videoFile} type="video/mp4" />
-              </video>
-            )}
+      <div className="flex mx-20 p-4  h-screen  justify-center">
+        <div className=" text-center margin-auto  ">
+          {videodata && (
+            <video autoPlay loop muted controls className={`   h-2/3 `}>
+              <source src={videodata?.videoFile} type="video/mp4" />
+            </video>
+          )}
 
-            <div className="flex flex-col border border-black-200 rounded ">
-              <div className=" ">
-                <h1 className=" text-lg font-medium text-start  ">
-                  {videodata?.title} ashwani
-                </h1>
-                <div className="flex  justify-between  self-center ">
-                  <div className="flex justify-start gap-2 self-center  ">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={user?.avatar}
-                      alt="Picture of the author"
-                      className=" w-14 h-14 rounded-full p-1 text-center "
-                    />
-                    <div className="  self-center flex flex-col text-left p-2">
-                      <h5 className="font-bold">{user?.username}</h5>
-                      <p className="font-light text-xs"> 156k subscribers</p>
-                    </div>
-                    <div className="self-center ">
-                      <button className={`${styles.subscribe_btn}`}>
-                        Subscribe{" "}
-                      </button>
-                    </div>
+          <div className="flex flex-col border border-black-200 rounded ">
+            <div className=" ">
+              <h1 className=" text-lg font-medium text-start  ">
+                {videodata?.title} ashwani
+              </h1>
+              <div className="flex  justify-between  self-center ">
+                <div className="flex justify-start gap-2 self-center  ">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={user?.avatar}
+                    alt="Picture of the author"
+                    className=" w-14 h-14 rounded-full p-1 text-center "
+                  />
+                  <div className="  self-center flex flex-col text-left p-2">
+                    <h5 className="font-bold">{user?.username}</h5>
+                    <p className="font-light text-xs"> 156k subscribers</p>
                   </div>
-                  <div className=" flex gap-5  self-center ">
-                    <div className=" ">
-                      <button>
-                        <ThumbUpOffAltIcon />
-                      </button>
-                      <button>
-                        <ThumbDownOffAltIcon />
-                      </button>
-                    </div>
-                    <div>
-                      <ScreenShareIcon />
-                    </div>
-                    <div>
-                      <MoreHorizIcon />
-                    </div>
+                  <div className="self-center ">
+                    <button className={`${styles.subscribe_btn}`}>
+                      Subscribe{" "}
+                    </button>
+                  </div>
+                </div>
+                <div className=" flex gap-5  self-center ">
+                  <div className=" ">
+                    <button>
+                      <ThumbUpOffAltIcon />
+                    </button>
+                    <button>
+                      <ThumbDownOffAltIcon />
+                    </button>
+                  </div>
+                  <div>
+                    <ScreenShareIcon />
+                  </div>
+                  <div>
+                    <MoreHorizIcon />
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </Suspense>
+      </div>
     </>
   );
 };

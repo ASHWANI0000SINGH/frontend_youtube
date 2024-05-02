@@ -10,7 +10,6 @@ import { UserContext } from "@/app/provider";
 
 const Video = ({ videoData }: VideoType) => {
   const [date, setDate] = useState(null);
-  const [allowloop, setAllowLoop] = useState(false);
   let loggedInUser = useContext(UserContext);
   console.log("logged in user from nav", loggedInUser);
   const router = useRouter();
@@ -32,12 +31,14 @@ const Video = ({ videoData }: VideoType) => {
           videoData?.map((item: VideoType) => {
             return (
               <>
-                <div className=" w-80 h-80 text-center  m-2 p-1  ">
+                <div
+                  className={`${styles.videocontrooler} w-80 h-80 text-center  m-2 p-1  `}
+                >
                   <video
                     autoPlay
                     loop
                     muted
-                    className={`${styles.videocontrooler} w-80 h-44 border rounded  `}
+                    className={` cursor-pointer w-80 h-44 border rounded  `}
                     onClick={() => routeToIndividualVideo(item)}
                   >
                     <source src={item.videoFile} type="video/mp4" />

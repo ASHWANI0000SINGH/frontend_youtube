@@ -1,25 +1,18 @@
 "use client";
-import { useState, ChangeEvent, FormEvent, createContext } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import axios from "axios";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Cookies from "js-cookie";
-import { useRouter } from "next/navigation";
-import { FormDataType } from "../signup/page";
 
 interface FormData {
   email: string;
-  password: string;
+  username: string;
 }
 
 const Page: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     email: "",
-    password: "",
+    username: "",
   });
-  // const [loggedInUser, setLoggedInUser] = useState<FormDataType | null>(null);
-
-  const router = useRouter();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,33 +20,29 @@ const Page: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (formData.email !== "" && formData.password !== "") {
+    if (formData.email !== "" && formData.username !== "") {
       try {
-        // const formDataToSend = new FormData();
-        // formDataToSend.append("email", formData.email);
-        // formDataToSend.append("password", formData.password);
+        console.log("formdata", formData);
         const result = await axios.post(
-          "http://localhost:5000/api/v1/users/login",
+          "http://localhost:5000/api/v1/users/updateuserdetails",
           formData,
           {
             headers: {
-              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             },
           }
         );
-        console.log("Registration successful", result.data);
-        console.log("user", result.data.user.loggedInUser);
-
-        router.push("/");
-        localStorage.setItem(
-          "loggedInUser",
-          JSON.stringify(result.data.user.loggedInUser)
-        );
-        localStorage.setItem("accessToken", result.data.user.accessToken);
+        alert("user details succesfully modifies");
+        console.log("user details changed", result.data);
+        setFormData({
+          email: "",
+          username: "",
+        });
       } catch (error) {
-        console.error("Error registering user:", error);
+        console.error("Error While updating user details:", error);
       }
     } else {
+      console.log("formdata", formData);
       alert("please fill the complete form");
     }
   };
@@ -68,20 +57,21 @@ const Page: React.FC = () => {
         <Input
           type="email"
           name="email"
-          placeholder="Email"
+          placeholder=" email"
           onChange={handleChange}
         />
         <br />
 
         <Input
-          type="password"
-          name="password"
-          placeholder="Password"
+          type="text"
+          name="username"
+          placeholder=" username"
           onChange={handleChange}
         />
         <br />
+
         <button className="bg-black text-white p-2 " type="submit">
-          Login
+          Update User Deatails
         </button>
       </form>
     </div>

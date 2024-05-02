@@ -14,10 +14,12 @@ import { UserContext } from "@/app/provider";
 const Navbar = () => {
   const router = useRouter();
   let loggedInUser = useContext(UserContext);
-  console.log("logged in user from navbar", loggedInUser);
 
   const gotoProfile = () => {
     router.push("/userprofile");
+  };
+  const gotTovideopage = () => {
+    router.push("/videoupload");
   };
 
   return (
@@ -45,8 +47,8 @@ const Navbar = () => {
               </h2>
             </div>
             <div className="flex justify-evenly gap-3">
-              <div>
-                <EmergencyRecordingIcon />
+              <div className="cursor-pointer">
+                <EmergencyRecordingIcon onClick={gotTovideopage} />
               </div>
               <div>
                 <NotificationsNoneIcon />
