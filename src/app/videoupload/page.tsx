@@ -28,7 +28,7 @@ const Page: React.FC = () => {
   const [loading, setLoading] = useState(false);
 
   const ownerArray: FormDataType[] | null = loggedInUser
-    ? [{ ...loggedInUser, _id: loggedInUser._id }]
+    ? [loggedInUser.loggedInUser]
     : null;
 
   const [formData, setFormData] = useState<VideoDataType>({

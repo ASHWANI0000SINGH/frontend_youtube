@@ -12,6 +12,7 @@ export interface FormDataType {
   password: string;
   avatar: File | string;
   coverImage: File | string;
+  _id?: string;
 }
 
 const Page: React.FC = () => {
