@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { UserContext } from "../provider";
 import Link from "next/link";
 
-const page = () => {
+const MoreSettongs = () => {
   const loggedInUser = useContext(UserContext);
   console.log("logged in user profile", loggedInUser);
   return (
@@ -51,4 +51,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default MoreSettongs;
