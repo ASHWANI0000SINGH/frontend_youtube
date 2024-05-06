@@ -120,7 +120,8 @@ const VideoPage = () => {
                 <div className="flex justify-start gap-2 self-center  ">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={videodata?.owner.avatar}
+                    // src={videodata?.owner?.avatar}
+                    src={videodata?.owner?.avatar || ""}
                     alt="Picture of the author"
                     className=" w-14 h-14 rounded-full p-1 text-center "
                   />
