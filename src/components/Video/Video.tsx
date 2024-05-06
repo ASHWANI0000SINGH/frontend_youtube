@@ -11,7 +11,6 @@ import { UserContext } from "@/app/provider";
 const Video = ({ videoData }: VideoType) => {
   const [date, setDate] = useState(null);
   let loggedInUser = useContext(UserContext);
-  console.log("logged in user from nav", loggedInUser);
   const router = useRouter();
   const dateOnVideoUploaded = (createdAt: string) => {
     const uploadDate = new Date(createdAt);
@@ -20,8 +19,6 @@ const Video = ({ videoData }: VideoType) => {
     return `${month}/${day}`; // Return formatted date (MM/DD)
   };
   const routeToIndividualVideo = (item: VideoType) => {
-    console.log("item", item?._id);
-    // route.push("eachproduct/productid/{id}");
     router.push(`/video/${item?._id}`);
   };
   return (

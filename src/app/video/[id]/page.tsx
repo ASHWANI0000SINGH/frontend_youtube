@@ -1,8 +1,8 @@
 "use client";
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import styles from "./video.module.css";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
 import axios from "axios";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
@@ -10,6 +10,8 @@ import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
 import ScreenShareIcon from "@mui/icons-material/ScreenShare";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Button } from "@/components/ui/button";
+import { UserContext } from "@/app/provider";
+import { VideoType } from "@/components/AllVideo/AllVideo";
 
 interface UserType1 {
   username: string;
@@ -27,11 +29,26 @@ interface VideoType1 {
   videoFile: string;
   _id: string;
 }
+interface UserVideoData {
+  duration: string;
+  isPublished: boolean;
+  owner: UserType1;
+  thumbnail: string;
+  title: string;
+  createdAt: string;
+
+  updatedAt: string;
+  videoFile: string;
+  views: string;
+}
 
 const VideoPage = () => {
   const [videodata, setVideoData] = useState<VideoType1 | null>(null);
+  const [uservideodata, setUserVideoData] = useState<UserVideoData[]>([]);
+
   const [user, setUser] = useState<UserType1 | null>(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   const params = useParams<{
     [x: string]: any;
@@ -55,13 +72,38 @@ const VideoPage = () => {
     };
     getAllVideo();
   }, [params.id, videodata?.videoFile]);
+
+  useEffect(() => {
+    const getAllUserVideos = async () => {
+      const result = await axios(
+        `http://localhost:5000/api/v1/video/fetch-user-video/${params.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+      console.log("uservideos", result.data.data);
+      setUserVideoData(result.data.data);
+    };
+    getAllUserVideos();
+  }, [params.id]);
   if (loading) {
     return <p className="text-center">Loading...</p>;
   }
+  const dateOnVideoUploaded = (createdAt: string) => {
+    const uploadDate = new Date(createdAt);
+    const month = ("0" + (uploadDate.getMonth() + 1)).slice(-2); // Format month (01 - 12)
+    const day = ("0" + uploadDate.getDate()).slice(-2); // Format day (01 - 31)
+    return `${month}/${day}`; // Return formatted date (MM/DD)
+  };
+  const routeToIndividualVideo = (item: VideoType) => {
+    router.push(`/video/${item?._id}`);
+  };
 
   return (
     <>
-      <div className="flex mx-20 p-4  h-screen  justify-center">
+      <div className="flex mx-20 p-4  h-screen  justify-between ">
         <div className=" text-center margin-auto  ">
           {videodata && (
             <video autoPlay loop muted controls className={`   h-2/3 `}>
@@ -110,6 +152,51 @@ const VideoPage = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+        <div className="user_videos ">
+          <div className="flex  flex-col justify-center gap-0 ">
+            {uservideodata &&
+              uservideodata?.map((item: UserVideoData) => {
+                return (
+                  <>
+                    <div
+                      className={`${styles.videocontrooler} w-80 h-80 text-center   `}
+                    >
+                      <video
+                        autoPlay
+                        loop
+                        muted
+                        className={` cursor-pointer w-80 h-44 border rounded  `}
+                        onClick={() => routeToIndividualVideo(item)}
+                      >
+                        <source src={item.videoFile} type="video/mp4" />
+                      </video>
+
+                      <div className="flex flex-col border border-black-200 rounded ">
+                        <div className="flex justify-start ">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={item.owner?.avatar}
+                            alt="Picture of the author"
+                            className=" w-10 h-10 rounded-full p-1 text-center "
+                          />
+                          <p className=" text-lg font-medium  text-center ">
+                            {item.title}
+                          </p>
+                        </div>
+                        <div className="flex flex-col justify-end  items-start   mx-10  text-gray-400 text-sm">
+                          <p>{item.owner?.username}</p>
+                          <div className="flex justify-start gap-2">
+                            <p> views </p> *
+                            <p>{dateOnVideoUploaded(item.createdAt)}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                );
+              })}
           </div>
         </div>
       </div>

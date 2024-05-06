@@ -6,41 +6,21 @@ import { access } from "fs";
 import Link from "next/link";
 import { useEffect, useState, createContext } from "react";
 import { FormDataType } from "./(auth)/signup/page";
+import UseAuth from "@/components/UseAuth";
 
 export default function Home() {
-  const [allowuser, setAllowUser] = useState(false);
-  let token = null;
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    token = localStorage.getItem("accessToken");
-    token = localStorage.getItem("accessToken");
-
-    function isTokenExpired(token: string | null) {
-      if (!token) {
-        // Token is not provided
-        return true;
-      }
-
-      const decodedToken = JSON.parse(atob(token.split(".")[1])); // Decode token payload
-      const expirationTime = decodedToken.exp * 1000; // Expiration time in milliseconds
-
-      const currentTime = Date.now(); // Current time in milliseconds
-
-      return currentTime > expirationTime; // Return true if token is expired, false otherwise
-    }
-
-    if (!isTokenExpired(token)) {
-      setAllowUser(true);
-      // Handle expired token, e.g., redirect to login page or refresh token
-    } else {
-      alert("token is expired please login ");
-      // Proceed with making authenticated requests using the token
-    }
-  }, []);
+  const { allowuser } = UseAuth();
 
   return (
     <>
-      {!allowuser ? (
+      {allowuser ? (
+        <>
+          <div className=" ml-5 font-bold mt-5 text-black"></div>
+          <div className="video-container">
+            <AllVideo />
+          </div>
+        </>
+      ) : (
         <>
           <div className=" flex justify-end mx-2 p-5 border-sky-100">
             <div className="m-2">
@@ -59,13 +39,6 @@ export default function Home() {
                 Signup
               </Link>
             </div>
-          </div>
-        </>
-      ) : (
-        <>
-          <div className=" ml-5 font-bold mt-5 text-black"></div>
-          <div className="video-container">
-            <AllVideo />
           </div>
         </>
       )}

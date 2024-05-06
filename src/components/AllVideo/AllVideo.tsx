@@ -35,25 +35,6 @@ const AllVideo = () => {
 
   return (
     <div className="text-center">
-      {/* <div className="flex justify-between p-10 sticky top-10 z-50">
-        <div>All</div>
-        <div>All</div>
-        <div>All</div>
-        <div>All</div>
-        <div>All</div>
-        <div>All</div>
-        <div>All</div>
-        <div>All</div>
-        <div>All</div>
-        <div>All</div>
-        <div>All</div>
-        <div>All</div>
-        <div>All</div>
-        <div>All</div>
-        <div>All</div>
-        <div>All</div>
-        <div>All</div>
-      </div> */}
       <div>
         <Video videoData={videoData} />
       </div>
