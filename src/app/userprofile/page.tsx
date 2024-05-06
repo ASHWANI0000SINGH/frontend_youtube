@@ -30,11 +30,13 @@ const Profile = () => {
             <div>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={loggedInUser?.avatar}
+                src={loggedInUser?.loggedInUser?.avatar}
                 alt=""
                 className=" w-6 h-6 rounded-full  "
               />
-              <h5 className="text-md font-medium">{loggedInUser?.username}</h5>
+              <h5 className="text-md font-medium">
+                {loggedInUser?.loggedInUser?.username}
+              </h5>
             </div>
           </div>
         </div>
