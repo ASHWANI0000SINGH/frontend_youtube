@@ -1,6 +1,5 @@
 "use client";
 import React, { Suspense, useContext, useEffect, useState } from "react";
-import Image from "next/image";
 import styles from "./video.module.css";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
@@ -9,44 +8,44 @@ import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
 import ScreenShareIcon from "@mui/icons-material/ScreenShare";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { Button } from "@/components/ui/button";
-import { UserContext } from "@/app/provider";
+
 import { VideoType } from "@/components/AllVideo/AllVideo";
 
-interface UserType1 {
-  username: string;
-  email: string;
-  avatar: string;
-  coverImage: string;
-}
-interface VideoType1 {
-  createdAt: string;
-  duration: number;
-  owner: string;
-  thumbnail: string;
-  title: string;
-  updatedAt: string;
-  videoFile: string;
-  _id: string;
-}
-interface UserVideoData {
-  duration: string;
-  isPublished: boolean;
-  owner: UserType1;
-  thumbnail: string;
-  title: string;
-  createdAt: string;
+// interface UserType1 {
+//   username: string;
+//   email: string;
+//   avatar: string;
+//   coverImage: string;
+// }
+// interface VideoType1 {
+//   createdAt: string;
+//   duration: number;
+//   owner: UserType1;
+//   thumbnail: string;
+//   title: string;
+//   updatedAt: string;
+//   videoFile: string;
+//   _id: string;
+//   isPublished: boolean;
+// }
+// interface UserVideoDataType {
+//   duration: string;
+//   isPublished: boolean;
+//   owner: UserType1;
+//   thumbnail: string;
+//   title: string;
+//   createdAt: string;
 
-  updatedAt: string;
-  videoFile: string;
-  views: string;
-}
+//   updatedAt: string;
+//   videoFile: string;
+//   views: string;
+// }
 
 const VideoPage = () => {
-  const [videodata, setVideoData] = useState<VideoType1 | null>(null);
-  const [uservideodata, setUserVideoData] = useState<UserVideoData[]>([]);
+  const [videodata, setVideoData] = useState<VideoType | null>(null);
+  const [uservideodata, setUserVideoData] = useState<VideoType[]>([]);
 
-  const [user, setUser] = useState<UserType1 | null>(null);
+  // const [user, setUser] = useState<UserType1 | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -66,8 +65,9 @@ const VideoPage = () => {
           },
         }
       );
-      setVideoData(result.data.data[0]);
-      setUser(result.data.data[1]);
+      console.log("video id resuly", result.data.data.owner.username);
+      setVideoData(result.data.data);
+      // setUser(result.data.data[1]);
       setLoading(false);
     };
     getAllVideo();
@@ -120,12 +120,12 @@ const VideoPage = () => {
                 <div className="flex justify-start gap-2 self-center  ">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={user?.avatar}
+                    src={videodata?.owner.avatar}
                     alt="Picture of the author"
                     className=" w-14 h-14 rounded-full p-1 text-center "
                   />
                   <div className="  self-center flex flex-col text-left p-2">
-                    <h5 className="font-bold">{user?.username}</h5>
+                    <h5 className="font-bold">{videodata?.owner?.username}</h5>
                     <p className="font-light text-xs"> 156k subscribers</p>
                   </div>
                   <div className="self-center ">
@@ -157,7 +157,7 @@ const VideoPage = () => {
         <div className="user_videos ">
           <div className="flex  flex-col justify-center gap-0 ">
             {uservideodata &&
-              uservideodata?.map((item: UserVideoData) => {
+              uservideodata?.map((item: VideoType) => {
                 return (
                   <>
                     <div
@@ -186,7 +186,7 @@ const VideoPage = () => {
                           </p>
                         </div>
                         <div className="flex flex-col justify-end  items-start   mx-10  text-gray-400 text-sm">
-                          <p>{item.owner?.username}</p>
+                          <p>{item.owner.username}</p>
                           <div className="flex justify-start gap-2">
                             <p> views </p> *
                             <p>{dateOnVideoUploaded(item.createdAt)}</p>

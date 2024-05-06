@@ -8,7 +8,8 @@ import { useRouter } from "next/navigation";
 import styles from "./video.module.css";
 import { UserContext } from "@/app/provider";
 
-const Video = ({ videoData }: VideoType) => {
+// const Video = ({ videoData }: VideoType) => {
+const Video = ({ videoData }: { videoData: VideoType[] }) => {
   const [date, setDate] = useState(null);
   let loggedInUser = useContext(UserContext);
   const router = useRouter();
@@ -45,8 +46,14 @@ const Video = ({ videoData }: VideoType) => {
                     <div className="flex justify-start ">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
-                        src={item.users[0]?.avatar}
-                        alt="Picture of the author"
+                        src={
+                          Array.isArray(item.owner) &&
+                          item.owner.length > 0 &&
+                          item.owner[0]?.avatar
+                            ? item.owner[0]?.avatar
+                            : "/default-avatar.png" // Provide a default image URL here
+                        }
+                        alt="User Avatar"
                         className=" w-10 h-10 rounded-full p-1 text-center "
                       />
                       <p className=" text-lg font-medium  text-center ">
@@ -54,7 +61,12 @@ const Video = ({ videoData }: VideoType) => {
                       </p>
                     </div>
                     <div className="flex flex-col justify-end  items-start   mx-10  text-gray-400 text-sm">
-                      <p> {item.users[0]?.username}</p>
+                      <p>
+                        {Array.isArray(item.owner) &&
+                          item.owner.length > 0 &&
+                          item.owner[0]?.username}
+                      </p>
+
                       <div className="flex justify-start gap-2">
                         <p> views </p> *
                         <p>{dateOnVideoUploaded(item.createdAt)}</p>

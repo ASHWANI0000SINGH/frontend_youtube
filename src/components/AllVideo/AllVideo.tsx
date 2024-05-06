@@ -7,13 +7,13 @@ import { FormDataType } from "@/app/(auth)/signup/page";
 export interface VideoType {
   createdAt: string;
   duration: number;
-  owner: string;
+  owner: FormDataType | FormDataType[];
   thumbnail: string;
   title: string;
   updatedAt: string;
   videoFile: string;
   _id: string;
-  users: FormDataType[];
+  // users: FormDataType[];
 }
 
 const AllVideo = () => {
@@ -28,7 +28,9 @@ const AllVideo = () => {
           },
         }
       );
+      console.log("all video", result);
       setVideoData(result.data.data);
+      // setVideoData(result.data.data as VideoType[]); // Type assertion
     };
     getAllVideo();
   }, []);
