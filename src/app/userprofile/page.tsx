@@ -1,8 +1,5 @@
 "use client";
-import { isAuthenticated } from "@/utils/auth";
-import { redirect } from "next/dist/server/api-utils";
-import { useRouter } from "next/router";
-import React, { useContext, useEffect, useLayoutEffect } from "react";
+import React, { useContext } from "react";
 import { UserContext } from "../provider";
 import Link from "next/link";
 
@@ -18,7 +15,7 @@ const Profile = () => {
             Choose how you appear and what you see on YouTube
           </p>
           <p className="text-sm font-light mt-2">
-            Signed in as {loggedInUser?.username}
+            Signed in as {loggedInUser?.loggedInUser?.username}
           </p>
         </div>
         <hr />
@@ -50,7 +47,9 @@ const Profile = () => {
           </p>
         </div>
         <div className="mt-5">
-          <h5 className="font-bold">More settings for {loggedInUser?.email}</h5>
+          <h5 className="font-bold">
+            More settings for {loggedInUser?.loggedInUser?.email}
+          </h5>
           <div className="mt-2">
             <Link
               href="/moresettings"
