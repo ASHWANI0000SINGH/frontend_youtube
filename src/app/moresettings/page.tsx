@@ -11,7 +11,7 @@ const MoreSettongs = () => {
       <div className="text-center mt-2 flex flex-col gap-10 mx-20 p-3 justify-start items-center">
         <div>
           <h1 className="font-bold text-2xl leading-9">
-            More Settings {loggedInUser?.email}
+            More Settings {loggedInUser?.loggedInUser?.email}
           </h1>
         </div>
         <div className="changecurrentpassword">
