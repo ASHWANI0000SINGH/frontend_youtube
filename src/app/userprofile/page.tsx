@@ -3,7 +3,6 @@ import { isAuthenticated } from "@/utils/auth";
 import { redirect } from "next/dist/server/api-utils";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useLayoutEffect } from "react";
-import styles from "./profile.module.css";
 import { UserContext } from "../provider";
 import Link from "next/link";
 
@@ -13,7 +12,7 @@ const Profile = () => {
   return (
     <>
       <div className="flex flex-col    text-start mx-20 p-10 justify-start ">
-        <div className={styles.account}>
+        <div>
           <h5 className="font-bold">Account</h5>
           <p className="text-xl font-medium mt-6">
             Choose how you appear and what you see on YouTube

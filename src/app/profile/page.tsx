@@ -3,13 +3,12 @@ import { isAuthenticated } from "@/utils/auth";
 import { redirect } from "next/dist/server/api-utils";
 import { useRouter } from "next/router";
 import React, { useEffect, useLayoutEffect } from "react";
-import styles from "./profile.module.css";
 
 const Profile = () => {
   return (
     <>
       <div className="text-center h-screen flex justify-center items-center">
-        <div className={styles.account}>
+        <div>
           <h5>Account</h5>
           <p>Choose how you appear and what you see on YouTube</p>
           <p>Signed in as </p>
