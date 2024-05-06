@@ -291,6 +291,7 @@ const VideoPage = () => {
             },
           }
         );
+        console.log("user videos", result.data.data);
         setUserVideoData(result.data.data);
         setLoading(false);
       } catch (error) {
@@ -331,11 +332,26 @@ const VideoPage = () => {
               </h1>
               <div className="flex justify-between self-center">
                 <div className="flex justify-start gap-2 self-center">
-                  <Image
+                  {/* <Image
                     src={
                       Array.isArray(videodata?.owner)
                         ? videodata?.owner[0]?.avatar
                         : videodata?.owner?.avatar
+                    }
+                    width={500}
+                    height={500}
+                    quality={10}
+                    alt="Picture of the author"
+                    className="w-14 h-14 rounded-full p-1 text-center"
+                  /> */}
+
+                  <Image
+                    src={
+                      videodata &&
+                      !Array.isArray(videodata.owner) &&
+                      typeof videodata.owner.avatar === "string"
+                        ? videodata.owner.avatar
+                        : "/placeholder.jpg" // Provide a placeholder image URL or adjust as needed
                     }
                     width={500}
                     height={500}
@@ -383,7 +399,7 @@ const VideoPage = () => {
                 className="videocontrooler w-80 h-80 text-center"
               >
                 <video
-                  autoPlay
+                  // autoPlay
                   loop
                   muted
                   className="cursor-pointer w-80 h-44 border rounded"
@@ -393,7 +409,7 @@ const VideoPage = () => {
                 </video>
                 <div className="flex flex-col border border-black-200 rounded">
                   <div className="flex justify-start">
-                    <Image
+                    {/* <Image
                       src={
                         Array.isArray(item.owner)
                           ? item.owner[0]?.avatar
@@ -404,6 +420,20 @@ const VideoPage = () => {
                       quality={10}
                       alt="Picture of the author"
                       className="w-10 h-10 rounded-full p-1 text-center"
+                    /> */}
+
+                    <Image
+                      src={
+                        !Array.isArray(item.owner) &&
+                        typeof item.owner.avatar === "string"
+                          ? item.owner.avatar
+                          : "/placeholder.jpg" // Provide a placeholder image URL or adjust as needed
+                      }
+                      width={500}
+                      height={500}
+                      quality={10}
+                      alt="Picture of the author"
+                      className="w-14 h-14 rounded-full p-1 text-center"
                     />
                     <p className="text-lg font-medium text-center">
                       {item.title}
