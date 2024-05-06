@@ -30,7 +30,12 @@ const Profile = () => {
             <div>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={loggedInUser?.loggedInUser?.avatar}
+                // src={loggedInUser?.loggedInUser?.avatar}
+                src={
+                  typeof loggedInUser?.loggedInUser?.avatar === "string"
+                    ? loggedInUser.loggedInUser.avatar
+                    : ""
+                }
                 alt=""
                 className=" w-6 h-6 rounded-full  "
               />
