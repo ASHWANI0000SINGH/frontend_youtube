@@ -2,80 +2,76 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import axios from "axios";
 import { Input } from "@/components/ui/input";
-
-interface FormData {
-  email: string;
-  username: string;
-}
+import { UpdateUserDetailsType } from "@/app/allinterface";
 
 const Page: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({
-    email: "",
-    username: "",
-  });
+	const [formData, setFormData] = useState<UpdateUserDetailsType>({
+		email: "",
+		username: "",
+	});
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+		setFormData({ ...formData, [e.target.name]: e.target.value });
+	};
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    if (formData.email !== "" && formData.username !== "") {
-      try {
-        console.log("formdata", formData);
-        const result = await axios.post(
-          "http://localhost:5000/api/v1/users/updateuserdetails",
-          formData,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-            },
-          }
-        );
-        alert("user details succesfully modifies");
-        console.log("user details changed", result.data);
-        setFormData({
-          email: "",
-          username: "",
-        });
-      } catch (error) {
-        console.error("Error While updating user details:", error);
-      }
-    } else {
-      console.log("formdata", formData);
-      alert("please fill the complete form");
-    }
-  };
+	const handleSubmit = async (e: FormEvent) => {
+		e.preventDefault();
+		if (formData.email !== "" && formData.username !== "") {
+			try {
+				console.log("formdata", formData);
+				const result = await axios.post(
+					"http://localhost:5000/api/v1/users/updateuserdetails",
+					formData,
+					{
+						headers: {
+							Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+						},
+					}
+				);
+				alert("user details succesfully modifies");
+				console.log("user details changed", result.data);
+				setFormData({
+					email: "",
+					username: "",
+				});
+			} catch (error) {
+				console.error("Error While updating user details:", error);
+			}
+		} else {
+			console.log("formdata", formData);
+			alert("please fill the complete form");
+		}
+	};
 
-  return (
-    <div className="flex justify-center m-5">
-      <form
-        onSubmit={handleSubmit}
-        encType="multipart/form-data"
-        className=" grid w-full max-w-sm items-center gap-1.5"
-      >
-        <Input
-          type="email"
-          name="email"
-          placeholder=" email"
-          onChange={handleChange}
-        />
-        <br />
+	return (
+		<div className="flex justify-center m-5">
+			<form
+				onSubmit={handleSubmit}
+				encType="multipart/form-data"
+				className=" grid w-full max-w-sm items-center gap-1.5"
+			>
+				<Input
+					type="email"
+					name="email"
+					placeholder=" email"
+					onChange={handleChange}
+				/>
+				<br />
 
-        <Input
-          type="text"
-          name="username"
-          placeholder=" username"
-          onChange={handleChange}
-        />
-        <br />
+				<Input
+					type="text"
+					name="username"
+					placeholder=" username"
+					onChange={handleChange}
+				/>
+				<br />
 
-        <button className="bg-black text-white p-2 " type="submit">
-          Update User Deatails
-        </button>
-      </form>
-    </div>
-  );
+				<button className="bg-black text-white p-2 " type="submit">
+					Update User Deatails
+				</button>
+			</form>
+		</div>
+	);
 };
 
 export default Page;
