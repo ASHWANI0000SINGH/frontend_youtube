@@ -13,6 +13,9 @@ import axios from "axios";
 import Link from "next/link";
 import UseAuth from "../UseAuth";
 import Image from "next/image";
+import styles from "./Navbar.module.css";
+import SearchIcon from "@mui/icons-material/Search";
+import HorizontalRuleIcon from "@mui/icons-material/HorizontalRule";
 
 const Navbar = () => {
 	const [showBottomProfile, setShowBottomProfile] = useState(false);
@@ -65,17 +68,26 @@ const Navbar = () => {
 						</h1>
 						<h2>Logo</h2>
 					</div>
-					<div className="flex justify-evenly gap-3">
-						<input
-							type="text"
-							name=""
-							id=""
-							placeholder="Search"
-							className="border border-black rounded-r-full rounded-l-full w-96 h-8 p-2"
-						/>
-						<h2>
-							<SettingsVoiceIcon />
-						</h2>
+					<div className=" flex gap-4  place-items-center">
+						<div
+							className={`${styles.navbar_container} flex justify-evenly  relative`}
+						>
+							<input
+								type="text"
+								name=""
+								id=""
+								placeholder="Search"
+								className={`${styles.navbar}   p-2`}
+							/>
+							<div className={styles.icon_conatiner}>
+								<button>
+									<SearchIcon className={styles.search_icon} />
+								</button>
+							</div>
+						</div>
+						<div className={`${styles.mic_container} text-center w-10 h-6`}>
+							<SettingsVoiceIcon className={styles.mic} />
+						</div>
 					</div>
 					{allowuser ? (
 						<>
