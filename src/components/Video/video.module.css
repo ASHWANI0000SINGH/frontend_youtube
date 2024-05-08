@@ -1,0 +1,34 @@
+.video {
+	border-radius: 0.5em 0.5rem;
+}
+
+.videocontrooler :hover {
+	border-radius: 0;
+}
+
+.video_title {
+	/* border-radius: 0.5em 0.5rem; */
+
+	font-size: 1rem;
+	/* line-height: 2rem; */
+	font-weight: 500;
+	/* display: block; */
+	/* max-height: 4.4rem; */
+	text-wrap: wrap;
+	/* width: 70%; */
+	/* background-color: red; */
+	text-align: left;
+	padding: 0.1rem;
+}
+.dot {
+	font-size: 5px;
+	color: black;
+}
+
+.autorizeduser {
+	background-color: #606060;
+	font-size: small;
+	border-radius: 100px;
+	color: white;
+	padding: 1px;
+}

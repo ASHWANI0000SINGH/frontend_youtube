@@ -84,7 +84,7 @@ const VideoPage = () => {
 			<div className="flex mx-20 p-4 h-screen justify-between">
 				<div className="text-center margin-auto">
 					{videodata && (
-						<video autoPlay loop muted controls className="h-2/3">
+						<video autoPlay loop muted controls className="h-2/3 rounded">
 							<source src={videodata.videoFile} type="video/mp4" />
 						</video>
 					)}
