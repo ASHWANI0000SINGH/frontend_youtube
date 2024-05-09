@@ -16,6 +16,7 @@ import Image from "next/image";
 import styles from "./Navbar.module.css";
 import SearchIcon from "@mui/icons-material/Search";
 import HorizontalRuleIcon from "@mui/icons-material/HorizontalRule";
+import { dev_url } from "@/url/hosturl";
 
 const Navbar = () => {
 	const [showBottomProfile, setShowBottomProfile] = useState(false);
@@ -39,7 +40,7 @@ const Navbar = () => {
 		console.log("logout checking..");
 		try {
 			const result = await axios.post(
-				"http://localhost:5000/api/v1/users/logout",
+				`${dev_url}/users/logout`,
 				{},
 				{
 					headers: {

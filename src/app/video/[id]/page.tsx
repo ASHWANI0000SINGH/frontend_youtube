@@ -48,7 +48,7 @@ const VideoPage = () => {
 		const fetchUserVideos = async () => {
 			try {
 				const result = await axios.get(
-					`http://localhost:5000/api/v1/video/fetch-user-video/${params.id}`,
+					`${dev_url}/video/fetch-user-video/${params.id}`,
 					{
 						headers: {
 							Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
