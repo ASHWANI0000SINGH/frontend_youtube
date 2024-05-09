@@ -3,6 +3,7 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import axios from "axios";
 import { Input } from "@/components/ui/input";
 import { UpdateUserDetailsType } from "@/app/allinterface";
+import { dev_url } from "@/url/hosturl";
 
 const Page: React.FC = () => {
 	const [formData, setFormData] = useState<UpdateUserDetailsType>({
@@ -20,7 +21,7 @@ const Page: React.FC = () => {
 			try {
 				console.log("formdata", formData);
 				const result = await axios.post(
-					"http://localhost:5000/api/v1/users/updateuserdetails",
+					`${dev_url}/users/updateuserdetails`,
 					formData,
 					{
 						headers: {

@@ -25,8 +25,8 @@ const Video = ({ videoData }: { videoData: VideoType[] }) => {
 		e: React.MouseEvent<HTMLVideoElement, MouseEvent>
 	) => {
 		const vid = e.target as HTMLVideoElement;
-		console.log("video on leave", vid.currentTime);
-		console.log("video duration", vid.duration);
+		// console.log("video on leave", vid.currentTime);
+		// console.log("video duration", vid.duration);
 
 		vid.muted = true;
 		vid.defaultMuted = true;
@@ -37,7 +37,7 @@ const Video = ({ videoData }: { videoData: VideoType[] }) => {
 		e: React.MouseEvent<HTMLVideoElement, MouseEvent>
 	) => {
 		const vid = e.target as HTMLVideoElement;
-		console.log("video on leave", vid.currentTime);
+		// console.log("video on leave", vid.currentTime);
 		vid.muted = false;
 		vid.defaultMuted = false;
 

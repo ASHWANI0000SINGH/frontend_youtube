@@ -22,6 +22,7 @@ export default function RootLayout({
 			<body className={inter.className}>
 				<ThemeProvider>
 					<Navbar />
+
 					{children}
 					<SideNavbar />
 				</ThemeProvider>

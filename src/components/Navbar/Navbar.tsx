@@ -27,6 +27,7 @@ const Navbar = () => {
 
 	const gotoProfile = () => {
 		console.log("go to clicked");
+
 		router.push("/userprofile");
 	};
 
@@ -62,7 +63,7 @@ const Navbar = () => {
 		<>
 			<div className="flex flex-col w-full sticky top-0 z-50">
 				<div className="w-full h-20 bg-white flex justify-between items-center px-5 sticky top-0 z-50">
-					<div className="flex justify-evenly gap-3">
+					<div className="flex justify-evenly gap-3 mx-4">
 						<h1>
 							<MenuIcon />
 						</h1>
@@ -141,7 +142,6 @@ const Navbar = () => {
 					)}
 				</div>
 			</div>
-			{/* )} */}
 		</>
 	);
 };

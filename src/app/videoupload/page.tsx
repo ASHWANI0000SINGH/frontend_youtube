@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { UserContext } from "../provider";
+import { dev_url } from "@/url/hosturl";
 
 export interface VideoDataType {
 	duration: string;
@@ -66,7 +67,7 @@ const Page: React.FC = () => {
 				}
 
 				const result = await axios.post(
-					"http://localhost:5000/api/v1/video/upload",
+					`${dev_url}/video/upload`,
 					formDataToSend,
 					{
 						headers: {

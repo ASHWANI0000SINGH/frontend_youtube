@@ -4,6 +4,7 @@ import axios from "axios";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { FormDataType } from "@/app/allinterface";
+import { dev_url } from "@/url/hosturl";
 
 const Page: React.FC = () => {
 	const [formData, setFormData] = useState<FormDataType>({
@@ -52,7 +53,7 @@ const Page: React.FC = () => {
 				}
 
 				const result = await axios.post(
-					"http://localhost:5000/api/v1/users/register",
+					`${dev_url}/users/register`,
 					formDataToSend
 				);
 				if (result.data) {

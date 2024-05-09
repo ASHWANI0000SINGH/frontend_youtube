@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import UseAuth from "@/components/UseAuth";
 import { loginDataType } from "@/app/allinterface";
+import { dev_url } from "@/url/hosturl";
 
 const Page: React.FC = () => {
 	const [formData, setFormData] = useState<loginDataType>({
@@ -23,15 +24,11 @@ const Page: React.FC = () => {
 		e.preventDefault();
 		if (formData.email !== "" && formData.password !== "") {
 			try {
-				const result = await axios.post(
-					"http://localhost:5000/api/v1/users/login",
-					formData,
-					{
-						headers: {
-							"Content-Type": "application/json",
-						},
-					}
-				);
+				const result = await axios.post(`${dev_url}/users/login`, formData, {
+					headers: {
+						"Content-Type": "application/json",
+					},
+				});
 
 				if (result.data) {
 					setAllowUser(true);

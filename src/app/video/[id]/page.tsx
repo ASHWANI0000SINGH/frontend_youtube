@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import axios from "axios";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import { VideoType } from "@/app/allinterface";
+import { dev_url } from "@/url/hosturl";
 
 const VideoPage = () => {
 	const [videodata, setVideoData] = useState<VideoType | null>(null);
@@ -26,7 +27,7 @@ const VideoPage = () => {
 		const fetchVideoById = async () => {
 			try {
 				const result = await axios.get(
-					`http://localhost:5000/api/v1/video/fetch-byId/${params.id}`,
+					`${dev_url}/video/fetch-byId/${params.id}`,
 					{
 						headers: {
 							Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -54,7 +55,7 @@ const VideoPage = () => {
 						},
 					}
 				);
-				console.log("user videos", result.data.data);
+				console.log("users videos", result.data);
 				setUserVideoData(result.data.data);
 				setLoading(false);
 			} catch (error) {

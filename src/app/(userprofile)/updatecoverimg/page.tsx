@@ -3,6 +3,7 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import axios from "axios";
 import { Input } from "@/components/ui/input";
 import { UpdateCoverImgType } from "@/app/allinterface";
+import { dev_url } from "@/url/hosturl";
 
 const Page: React.FC = () => {
 	const [formData, setFormData] = useState<UpdateCoverImgType>({
@@ -31,7 +32,7 @@ const Page: React.FC = () => {
 				}
 
 				const result = await axios.post(
-					"http://localhost:5000/api/v1/users/update-coverImage",
+					`${dev_url}/users/update-coverImage`,
 					formDataToSend,
 					{
 						headers: {

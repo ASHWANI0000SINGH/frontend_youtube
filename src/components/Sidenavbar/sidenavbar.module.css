@@ -1,7 +1,7 @@
 .sidenav {
 	margin-top: 5rem;
 	height: 100%;
-	width: 10%;
+	width: 8%;
 	position: fixed;
 	z-index: 1;
 	top: 0;
@@ -18,7 +18,8 @@
 	/* background-color: green; */
 	align-items: center;
 	text-align: center;
-	margin-left: -30px;
+	/* margin-left: -15px; */
+	/* background-color: red; */
 }
 .home_icon {
 	cursor: pointer;

@@ -12,20 +12,21 @@
 }
 
 .navbar {
-	/* background-color: red; */
+	background-color: #ffffff;
 	width: 42vw;
 	height: 8vh;
 	border: 1px solid black;
 
 	/* border-right: 1px solid red; */
-	border: 1px solid #f0f0f0;
+	border: 1px solid #dfdfdf;
 	border-radius: 100px;
-	border-color: #f0f0f0;
+	border-color: #dfdfdf;
 }
 .icon_conatiner {
 	width: 6vw;
 	height: 8vh;
-	border: 1px solid #f0f0f0;
+	border: 1px solid #dfdfdf;
+	border-left: 1px solid #dfdfdf;
 	border-radius: 0 100px 100px 0;
 	position: absolute;
 	left: 36vw;

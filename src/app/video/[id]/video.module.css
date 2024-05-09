@@ -1,13 +1,13 @@
 .videoplayer {
-  /* background-color: pink; */
-  width: 640px;
-  height: 360px;
+	/* background-color: pink; */
+	width: 640px;
+	height: 360px;
 }
 .subscribe_btn {
-  background-color: black;
-  color: white;
-  font-weight: 400;
-  border-radius: 100px 100px;
-  width: auto;
-  padding: 5px;
+	background-color: black;
+	color: white;
+	font-weight: 400;
+	border-radius: 100px 100px;
+	width: auto;
+	padding: 5px;
 }
