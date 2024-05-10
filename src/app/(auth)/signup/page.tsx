@@ -8,7 +8,7 @@ import { dev_url } from "@/url/hosturl";
 
 const Page: React.FC = () => {
 	const [formData, setFormData] = useState<FormDataType>({
-		// username: "",
+		username: "",
 		email: "",
 		// fullName: "",
 		password: "",
@@ -31,11 +31,11 @@ const Page: React.FC = () => {
 
 		if (
 			formData.email !== "" &&
-			formData.password !== ""
+			formData.password !== "" &&
+			formData.username !== ""
 			// formData.avatar !== "" &&
 			// formData.coverImage !== "" &&
 			// formData.fullName !== "" &&
-			// formData.username !== ""
 		) {
 			console.log("formdata", formData);
 
@@ -73,13 +73,13 @@ const Page: React.FC = () => {
 				encType="multipart/form-data"
 				className=" grid w-full max-w-sm items-center gap-1.5"
 			>
-				{/* <Input
+				<Input
 					type="text"
 					name="username"
 					placeholder="Username"
 					onChange={handleChange}
 				/>
-				<br /> */}
+				<br />
 				<Input
 					type="email"
 					name="email"
