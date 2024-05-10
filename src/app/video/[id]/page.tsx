@@ -11,7 +11,7 @@ import { useParams } from "next/navigation";
 import Image from "next/image";
 import { VideoType } from "@/app/allinterface";
 import { dev_url } from "@/url/hosturl";
-
+import styles from "./video.module.css";
 const VideoPage = () => {
 	const [videodata, setVideoData] = useState<VideoType | null>(null);
 	const [uservideodata, setUserVideoData] = useState<VideoType[]>([]);
@@ -82,10 +82,18 @@ const VideoPage = () => {
 
 	return (
 		<>
-			<div className="flex mx-20 p-4 h-screen justify-between">
+			<div
+				className={`${styles.single_video_conatiner} flex mx-20 p-4 h-screen justify-between`}
+			>
 				<div className="text-center margin-auto">
 					{videodata && (
-						<video autoPlay loop muted controls className="h-2/3 rounded">
+						<video
+							autoPlay
+							loop
+							muted
+							controls
+							className={`${styles.video} h-2/3 rounded`}
+						>
 							<source src={videodata.videoFile} type="video/mp4" />
 						</video>
 					)}
@@ -142,7 +150,7 @@ const VideoPage = () => {
 						</div>
 					</div>
 				</div>
-				<div className="user_videos">
+				<div className={styles.user_videos}>
 					<div className="flex flex-col justify-center gap-0">
 						{uservideodata.map((item) => (
 							<div

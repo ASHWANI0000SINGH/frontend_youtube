@@ -5,7 +5,15 @@
 * {
 }
 .video-container {
-  /* background-color: red; */
-  margin-left: 10%;
-  /* width: 90%; */
+	/* background-color: red; */
+	margin-left: 10%;
+	/* width: 90%; */
+}
+
+@media only screen and (max-width: 400px) {
+	.video-container {
+		/* background-color: red; */
+		margin-left: 0;
+		/* width: 90%; */
+	}
 }

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Video from "../Video/Video";
 import { VideoType } from "@/app/allinterface";
 import { dev_url } from "@/url/hosturl";
+import styles from "./AllVideo.module.css";
 
 const AllVideo = () => {
 	const [videoData, setVideoData] = useState<VideoType[]>([]);
@@ -21,7 +22,7 @@ const AllVideo = () => {
 	}, []);
 
 	return (
-		<div className="text-center">
+		<div className={`${styles.allvideocontainer} text-center `}>
 			<div>
 				<Video videoData={videoData} />
 			</div>

@@ -47,7 +47,9 @@ const Video = ({ videoData }: { videoData: VideoType[] }) => {
 
 	return (
 		<>
-			<div className="flex justify-center flex-wrap align-center ">
+			<div
+				className={`${styles.video_container} flex justify-center flex-wrap align-center `}
+			>
 				{videoData &&
 					videoData?.map((item: VideoType) => {
 						return (
@@ -64,10 +66,14 @@ const Video = ({ videoData }: { videoData: VideoType[] }) => {
 										// controls
 										onClick={() => routeToIndividualVideo(item)}
 									>
-										<source src={item.videoFile} type="video/mp4" />
+										<source
+											src={item.videoFile}
+											type="video/mp4"
+											className={styles.videosrc}
+										/>
 									</video>
 
-									<div className=" ">
+									<div className={styles.vediodetials_container}>
 										<div className="flex flex-row  w-80 justify-between ">
 											<div className="flex justify-start ">
 												<Image

@@ -32,3 +32,25 @@
 	color: white;
 	padding: 1px;
 }
+/* 
+@media only screen and (max-width: 400px) {
+	.video_container {
+		width: 100%;
+	}
+	.videocontrooler {
+		width: 100%;
+	}
+	.video {
+		width: 100%;
+		border-radius: 0.5em 0.5rem;
+		background-color: green;
+	}
+	.vediodetials_container {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		text-align: center;
+		align-items: center;
+		justify-content: center;
+	}
+} */

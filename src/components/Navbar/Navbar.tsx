@@ -70,7 +70,9 @@ const Navbar = () => {
 						</h1>
 						<h2>Logo</h2>
 					</div>
-					<div className=" flex gap-4  place-items-center">
+					<div
+						className={`${styles.search_box_container} flex gap-4  place-items-center`}
+					>
 						<div
 							className={`${styles.navbar_container} flex justify-evenly  relative`}
 						>

@@ -11,3 +11,27 @@
 	width: auto;
 	padding: 5px;
 }
+@media only screen and (max-width: 400px) {
+	.single_video_conatiner {
+		width: 100%;
+		flex-direction: column;
+		/* background-color: red !important; */
+		margin: 0;
+		padding: 0;
+	}
+	.video {
+		width: 100%;
+	}
+	.user_videos {
+		margin-top: 2vh;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+
+		/* background-color: green; */
+		/* margin: 0; */
+		/* padding: 0; */
+		width: 100%;
+	}
+}
