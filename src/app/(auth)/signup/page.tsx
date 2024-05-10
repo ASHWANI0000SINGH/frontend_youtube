@@ -40,22 +40,20 @@ const Page: React.FC = () => {
 			console.log("formdata", formData);
 
 			try {
-				const formDataToSend = new FormData();
+				// const formDataToSend = new FormData();
 				// formDataToSend.append("username", formData.username);
-				formDataToSend.append("email", formData.email);
+				// formDataToSend.append("email", formData.email);
 				// formDataToSend.append("fullName", formData.fullName);
-				formDataToSend.append("password", formData.password);
+				// formDataToSend.append("password", formData.password);
 				// if (formData.avatar) {
 				// 	formDataToSend.append("avatar", formData.avatar);
 				// }
 				// if (formData.coverImage) {
 				// 	formDataToSend.append("coverImage", formData.coverImage);
 				// }
+				console.log("formdata", formData);
 
-				const result = await axios.post(
-					`${dev_url}/users/register`,
-					formDataToSend
-				);
+				const result = await axios.post(`${dev_url}/users/register`, formData);
 				if (result.data) {
 					router.push("/login");
 				}
