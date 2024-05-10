@@ -16,12 +16,12 @@ export interface loginDataType {
 }
 
 export interface FormDataType {
-	username: string;
+	username?: string;
 	email: string;
-	fullName: string;
+	fullName?: string;
 	password: string;
-	avatar: File | string;
-	coverImage: File | string;
+	avatar?: File | string;
+	coverImage?: File | string;
 	_id?: string;
 }
 

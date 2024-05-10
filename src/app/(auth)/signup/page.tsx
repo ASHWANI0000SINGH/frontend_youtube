@@ -8,49 +8,49 @@ import { dev_url } from "@/url/hosturl";
 
 const Page: React.FC = () => {
 	const [formData, setFormData] = useState<FormDataType>({
-		username: "",
+		// username: "",
 		email: "",
-		fullName: "",
+		// fullName: "",
 		password: "",
-		avatar: "",
-		coverImage: "",
+		// avatar: "",
+		// coverImage: "",
 	});
 	const router = useRouter();
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
 
-	const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-		if (e.target.files) {
-			setFormData({ ...formData, [e.target.name]: e.target.files[0] });
-		}
-	};
+	// const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+	// 	if (e.target.files) {
+	// 		setFormData({ ...formData, [e.target.name]: e.target.files[0] });
+	// 	}
+	// };
 
 	const handleSubmit = async (e: FormEvent) => {
 		e.preventDefault();
 
 		if (
-			formData.avatar !== "" &&
-			formData.coverImage !== "" &&
 			formData.email !== "" &&
-			formData.fullName !== "" &&
-			formData.password !== "" &&
-			formData.username !== ""
+			formData.password !== ""
+			// formData.avatar !== "" &&
+			// formData.coverImage !== "" &&
+			// formData.fullName !== "" &&
+			// formData.username !== ""
 		) {
 			console.log("formdata", formData);
 
 			try {
 				const formDataToSend = new FormData();
-				formDataToSend.append("username", formData.username);
+				// formDataToSend.append("username", formData.username);
 				formDataToSend.append("email", formData.email);
-				formDataToSend.append("fullName", formData.fullName);
+				// formDataToSend.append("fullName", formData.fullName);
 				formDataToSend.append("password", formData.password);
-				if (formData.avatar) {
-					formDataToSend.append("avatar", formData.avatar);
-				}
-				if (formData.coverImage) {
-					formDataToSend.append("coverImage", formData.coverImage);
-				}
+				// if (formData.avatar) {
+				// 	formDataToSend.append("avatar", formData.avatar);
+				// }
+				// if (formData.coverImage) {
+				// 	formDataToSend.append("coverImage", formData.coverImage);
+				// }
 
 				const result = await axios.post(
 					`${dev_url}/users/register`,
@@ -75,26 +75,26 @@ const Page: React.FC = () => {
 				encType="multipart/form-data"
 				className=" grid w-full max-w-sm items-center gap-1.5"
 			>
-				<Input
+				{/* <Input
 					type="text"
 					name="username"
 					placeholder="Username"
 					onChange={handleChange}
 				/>
-				<br />
+				<br /> */}
 				<Input
 					type="email"
 					name="email"
 					placeholder="Email"
 					onChange={handleChange}
 				/>
-				<br />
+				{/* <br />
 				<Input
 					type="text"
 					name="fullName"
 					placeholder="Full Name"
 					onChange={handleChange}
-				/>
+				/> */}
 				<br />
 				<Input
 					type="password"
@@ -103,17 +103,17 @@ const Page: React.FC = () => {
 					onChange={handleChange}
 				/>
 				<br />
-				<Input
+				{/* <Input
 					type="file"
 					name="avatar"
 					onChange={handleFileChange}
 					placeholder="avatart"
-				/>
-				<span className="text-xs">Select Avatar File</span>
+				/> */}
+				{/* <span className="text-xs">Select Avatar File</span> */}
 				<br />
-				<Input type="file" name="coverImage" onChange={handleFileChange} />{" "}
+				{/* <Input type="file" name="coverImage" onChange={handleFileChange} />{" "}
 				<span className="text-xs">Select Cover Image</span>
-				<br />
+				<br /> */}
 				<button className=" bg-black  text-white p-2 " type="submit">
 					Register
 				</button>
