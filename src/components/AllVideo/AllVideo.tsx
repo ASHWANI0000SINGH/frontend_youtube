@@ -10,11 +10,14 @@ const AllVideo = () => {
 	const [videoData, setVideoData] = useState<VideoType[]>([]);
 	useEffect(() => {
 		const getAllVideo = async () => {
-			const result = await axios(`${dev_url}/video/fetch-allvideo`, {
-				headers: {
-					Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-				},
-			});
+			const result = await axios(
+				`${dev_url}/video/fetch-allvideo`
+				//  {
+				// 	headers: {
+				// 		Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+				// 	},
+				// }
+			);
 			console.log("all video", result);
 			setVideoData(result.data.data);
 		};

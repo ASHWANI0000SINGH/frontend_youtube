@@ -6,6 +6,9 @@ import { useRouter } from "next/navigation";
 import UseAuth from "@/components/UseAuth";
 import { loginDataType } from "@/app/allinterface";
 import { dev_url } from "@/url/hosturl";
+import { Button } from "@/components/ui/button";
+import styles from "./login.module.css";
+import Link from "next/link";
 
 const Page: React.FC = () => {
 	const [formData, setFormData] = useState<loginDataType>({
@@ -49,32 +52,43 @@ const Page: React.FC = () => {
 	};
 
 	return (
-		<div className="flex justify-center m-5">
-			<form
-				onSubmit={handleSubmit}
-				className="grid w-full max-w-sm items-center gap-1.5"
-			>
-				<Input
-					type="email"
-					name="email"
-					placeholder="Email"
-					value={formData.email}
-					onChange={handleChange}
-				/>
-				<br />
-				<Input
-					type="password"
-					name="password"
-					placeholder="Password"
-					value={formData.password}
-					onChange={handleChange}
-				/>
-				<br />
-				<button className="bg-black text-white p-2" type="submit">
-					Login
-				</button>
-			</form>
-		</div>
+		<>
+			<div className="flex justify-center m-5">
+				<form
+					onSubmit={handleSubmit}
+					className="grid w-full max-w-sm items-center gap-1.5"
+				>
+					<Input
+						type="email"
+						name="email"
+						placeholder="Email"
+						value={formData.email}
+						onChange={handleChange}
+					/>
+					<br />
+					<Input
+						type="password"
+						name="password"
+						placeholder="Password"
+						value={formData.password}
+						onChange={handleChange}
+					/>
+					<br />
+					<button className="bg-black text-white p-2" type="submit">
+						Login
+					</button>
+					<div className="m-2 text-center">
+						<span>Dont Have An Account ?</span>
+						<Link
+							className={`${styles.signup_link} m-2 p-2  `}
+							href={"/signup"}
+						>
+							SignUp
+						</Link>
+					</div>
+				</form>
+			</div>
+		</>
 	);
 };
 

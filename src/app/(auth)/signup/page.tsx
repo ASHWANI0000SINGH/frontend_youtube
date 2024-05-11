@@ -5,26 +5,19 @@ import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { FormDataType } from "@/app/allinterface";
 import { dev_url } from "@/url/hosturl";
+import Link from "next/link";
+import styles from "./signup.module.css";
 
 const Page: React.FC = () => {
 	const [formData, setFormData] = useState<FormDataType>({
 		username: "",
 		email: "",
-		// fullName: "",
 		password: "",
-		// avatar: "",
-		// coverImage: "",
 	});
 	const router = useRouter();
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
-
-	// const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-	// 	if (e.target.files) {
-	// 		setFormData({ ...formData, [e.target.name]: e.target.files[0] });
-	// 	}
-	// };
 
 	const handleSubmit = async (e: FormEvent) => {
 		e.preventDefault();
@@ -33,26 +26,10 @@ const Page: React.FC = () => {
 			formData.email !== "" &&
 			formData.password !== "" &&
 			formData.username !== ""
-			// formData.avatar !== "" &&
-			// formData.coverImage !== "" &&
-			// formData.fullName !== "" &&
 		) {
 			console.log("formdata", formData);
 
 			try {
-				// const formDataToSend = new FormData();
-				// formDataToSend.append("username", formData.username);
-				// formDataToSend.append("email", formData.email);
-				// formDataToSend.append("fullName", formData.fullName);
-				// formDataToSend.append("password", formData.password);
-				// if (formData.avatar) {
-				// 	formDataToSend.append("avatar", formData.avatar);
-				// }
-				// if (formData.coverImage) {
-				// 	formDataToSend.append("coverImage", formData.coverImage);
-				// }
-				console.log("formdata", formData);
-
 				const result = await axios.post(`${dev_url}/users/register`, formData);
 				if (result.data) {
 					router.push("/login");
@@ -86,13 +63,7 @@ const Page: React.FC = () => {
 					placeholder="Email"
 					onChange={handleChange}
 				/>
-				{/* <br />
-				<Input
-					type="text"
-					name="fullName"
-					placeholder="Full Name"
-					onChange={handleChange}
-				/> */}
+
 				<br />
 				<Input
 					type="password"
@@ -101,20 +72,15 @@ const Page: React.FC = () => {
 					onChange={handleChange}
 				/>
 				<br />
-				{/* <Input
-					type="file"
-					name="avatar"
-					onChange={handleFileChange}
-					placeholder="avatart"
-				/> */}
-				{/* <span className="text-xs">Select Avatar File</span> */}
-				<br />
-				{/* <Input type="file" name="coverImage" onChange={handleFileChange} />{" "}
-				<span className="text-xs">Select Cover Image</span>
-				<br /> */}
 				<button className=" bg-black  text-white p-2 " type="submit">
 					Register
 				</button>
+				<div className="m-2 text-center">
+					<span>Already Have An Account ?</span>
+					<Link className={`${styles.login_link} m-2 p-2  `} href={"/login"}>
+						Login
+					</Link>
+				</div>
 			</form>
 		</div>
 	);

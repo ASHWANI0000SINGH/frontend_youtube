@@ -9,6 +9,17 @@
 	margin-left: 10%;
 	/* width: 90%; */
 }
+button:hover {
+	background-color: rgb(249, 240, 240);
+	letter-spacing: 2px;
+	font-weight: 500;
+	color: black;
+	box-sizing: border-box;
+	transition: all 0.3s ease;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Shadow effect */
+	transform: translateY(0); /* Initial position */
+	/* border: solid whitesmoke; */
+}
 
 @media only screen and (max-width: 400px) {
 	.video-container {

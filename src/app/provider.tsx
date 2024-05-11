@@ -1,7 +1,6 @@
 "use client";
 import { createContext, useState, useEffect, ReactNode } from "react";
 import { FormDataType } from "./allinterface";
-import UseAuth from "@/components/UseAuth";
 
 export interface UserContextType {
 	loggedInUser: FormDataType | null;
@@ -16,7 +15,6 @@ interface ThemeProviderProps {
 
 export default function ThemeProvider({ children }: ThemeProviderProps) {
 	const [loggedInUser, setLoggedInUser] = useState<FormDataType | null>(null);
-	const { allowuser } = UseAuth();
 
 	useEffect(() => {
 		const userFromLocalStorage = localStorage.getItem("loggedInUser");

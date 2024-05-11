@@ -51,7 +51,7 @@ const Navbar = () => {
 			if (result.data) {
 				localStorage.clear();
 				setAllowUser(false);
-				router.push("/login");
+				router.push("/");
 				alert("Logged out ");
 			}
 			console.log("Logged out", result.data);
