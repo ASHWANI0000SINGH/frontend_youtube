@@ -7,9 +7,13 @@ import { VideoType } from "@/app/allinterface";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import DoneIcon from "@mui/icons-material/Done";
+import { useQuery } from "@tanstack/react-query";
 // const Video = ({ videoData }: VideoType) => {
-const Video = ({ videoData }: { videoData: VideoType[] }) => {
-	const [date, setDate] = useState(null);
+const Video: React.FC<{
+	videoData: VideoType[];
+	isLoading: boolean;
+	isError: boolean;
+}> = ({ videoData, isLoading, isError }) => {
 	let loggedInUser = useContext(UserContext);
 	const router = useRouter();
 	const dateOnVideoUploaded = (createdAt: string) => {
@@ -44,6 +48,12 @@ const Video = ({ videoData }: { videoData: VideoType[] }) => {
 		vid.pause();
 		vid.controls = false;
 	};
+	if (isLoading) {
+		return <p>Loading 1.2.3...</p>;
+	}
+	if (isError) {
+		return <p>Error while loading video...</p>;
+	}
 
 	return (
 		<>
