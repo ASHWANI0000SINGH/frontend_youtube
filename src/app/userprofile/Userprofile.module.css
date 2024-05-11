@@ -1,0 +1,36 @@
+.cover_conatiner {
+	border-color: #dfdfdf;
+}
+.avatarconatainer {
+	position: absolute;
+	left: 130px;
+	bottom: 100px;
+}
+.coverimage {
+	width: 800px;
+	height: 300px;
+}
+.editcoverimg {
+	position: absolute;
+	background-color: white;
+	top: 110px;
+	left: 850px;
+	/* width: 30px; */
+	/* height: 30px; */
+	text-align: center;
+
+	/* border-radius: 100px; */
+}
+.about_container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-top: 80px;
+	/* background-color: green; */
+}
+.fullname {
+	margin-left: 100px;
+}
+.moresetting_container {
+	border-color: #dfdfdf;
+}
