@@ -1,5 +1,5 @@
 "use client";
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent, useRef } from "react";
 import axios from "axios";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
@@ -7,6 +7,7 @@ import { FormDataType } from "@/app/allinterface";
 import { dev_url } from "@/url/hosturl";
 import Link from "next/link";
 import styles from "./signup.module.css";
+import { toast } from "react-hot-toast";
 
 const Page: React.FC = () => {
 	const [formData, setFormData] = useState<FormDataType>({
@@ -14,6 +15,12 @@ const Page: React.FC = () => {
 		email: "",
 		password: "",
 	});
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(false);
+
+	const signUpRefBtn: React.RefObject<HTMLButtonElement> =
+		useRef<HTMLButtonElement>(null);
+
 	const router = useRouter();
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,6 +28,7 @@ const Page: React.FC = () => {
 
 	const handleSubmit = async (e: FormEvent) => {
 		e.preventDefault();
+		setLoading(true);
 
 		if (
 			formData.email !== "" &&
@@ -32,16 +40,30 @@ const Page: React.FC = () => {
 			try {
 				const result = await axios.post(`${dev_url}/users/register`, formData);
 				if (result.data) {
+					toast.success("Succesfully Logged In"); // Displays a success message
+					setLoading(false);
 					router.push("/login");
 				}
 				console.log("Registration successful", result);
 			} catch (error) {
+				setLoading(false);
+				setError(true);
 				console.error("Error registering user:", error);
 			}
 		} else {
 			alert("please fill the complete form");
 		}
 	};
+	if (loading) {
+		if (signUpRefBtn.current !== null) {
+			signUpRefBtn.current.disabled = true;
+		}
+		console.log(signUpRefBtn);
+		return <p>Loading...</p>;
+	}
+	if (error) {
+		return <p className="text-center bg-red-100">Something went wrong..</p>;
+	}
 
 	return (
 		<div className="flex justify-center m-5">
@@ -72,7 +94,11 @@ const Page: React.FC = () => {
 					onChange={handleChange}
 				/>
 				<br />
-				<button className=" bg-black  text-white p-2 " type="submit">
+				<button
+					ref={signUpRefBtn}
+					className=" bg-black  text-white p-2 "
+					type="submit"
+				>
 					Register
 				</button>
 				<div className="m-2 text-center">

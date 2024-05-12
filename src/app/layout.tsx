@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar/Navbar";
 import SideNavbar from "@/components/Sidenavbar/SideNavbar";
 import ThemeProvider from "./provider";
 import ReactQueryProvider from "@/components/queryclient/ReactQueryClientProvider";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +25,7 @@ export default function RootLayout({
 				<ReactQueryProvider>
 					<ThemeProvider>
 						<Navbar />
+						<Toaster position="top-center" />
 
 						{children}
 						<SideNavbar />

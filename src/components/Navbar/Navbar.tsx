@@ -17,6 +17,7 @@ import styles from "./Navbar.module.css";
 import SearchIcon from "@mui/icons-material/Search";
 import HorizontalRuleIcon from "@mui/icons-material/HorizontalRule";
 import { dev_url } from "@/url/hosturl";
+import { toast } from "react-hot-toast";
 
 const Navbar = () => {
 	const [showBottomProfile, setShowBottomProfile] = useState(false);
@@ -52,7 +53,7 @@ const Navbar = () => {
 				localStorage.clear();
 				setAllowUser(false);
 				router.push("/");
-				alert("Logged out ");
+				toast.success("Succesfully Logged out"); // Displays a success message
 			}
 			console.log("Logged out", result.data);
 		} catch (error) {

@@ -8,6 +8,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import DoneIcon from "@mui/icons-material/Done";
 import { useQuery } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
 // const Video = ({ videoData }: VideoType) => {
 const Video: React.FC<{
 	videoData: VideoType[];
@@ -23,7 +24,11 @@ const Video: React.FC<{
 		return `${month}/${day}`; // Return formatted date (MM/DD)
 	};
 	const routeToIndividualVideo = (item: VideoType) => {
-		router.push(`/video/${item?._id}`);
+		if (!loggedInUser?.loggedInUser) {
+			toast.error("Please Login to watch "); // Displays a error message
+		} else {
+			router.push(`/video/${item?._id}`);
+		}
 	};
 	const handleMouseEnter = (
 		e: React.MouseEvent<HTMLVideoElement, MouseEvent>
@@ -49,10 +54,12 @@ const Video: React.FC<{
 		vid.controls = false;
 	};
 	if (isLoading) {
-		return <p>Loading 1.2.3...</p>;
+		return <p className="text-center">Loading ...</p>;
 	}
 	if (isError) {
-		return <p>Error while loading video...</p>;
+		return (
+			<p className="text-center bg-danger">Error while loading video...</p>
+		);
 	}
 
 	return (

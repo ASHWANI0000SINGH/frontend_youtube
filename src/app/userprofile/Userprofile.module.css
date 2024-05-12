@@ -34,3 +34,37 @@
 .moresetting_container {
 	border-color: #dfdfdf;
 }
+
+@media only screen and (max-width: 400px) {
+	.userprofile_container {
+		flex-direction: column;
+	}
+	.cover_conatiner {
+		/* background-color: green; */
+		/* border: 100px solid black; */
+	}
+	.coverimage {
+		height: 20vh;
+	}
+	.editcoverimg {
+		left: 320px;
+	}
+	.avatarconatainer {
+		left: 30px;
+		top: 150px;
+	}
+	.moresetting_container {
+		/* background-color: blue; */
+		margin-top: 2vh;
+		width: 100%;
+		padding: 0;
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.about_container {
+		/* background-color: yellow; */
+		/* padding-top: 150px; */
+		/* text-align: center; */
+		/* margin: 0; */
+	}
+}
