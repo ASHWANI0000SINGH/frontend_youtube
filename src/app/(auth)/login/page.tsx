@@ -41,18 +41,18 @@ const Page: React.FC = () => {
 				});
 
 				if (result.data) {
+					toast.success("Succesfully Logged In"); // Displays a success message
 					setAllowUser(true);
 					setLoading(false);
 
 					console.log("result login", result.data);
-					toast.success("Succesfully Logged In"); // Displays a success message
 
-					router.push("/");
 					localStorage.setItem(
 						"loggedInUser",
 						JSON.stringify(result.data.user.loggedInUser)
 					);
 					localStorage.setItem("accessToken", result.data.user.accessToken);
+					window.location.href = "/";
 				}
 			} catch (error) {
 				setLoading(false);

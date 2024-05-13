@@ -9,6 +9,7 @@ const UseAuth = () => {
 		function isTokenExpired(token: string | null) {
 			if (!token) {
 				// Token is not provided
+				setAllowUser(false);
 				return true;
 			}
 
@@ -19,17 +20,18 @@ const UseAuth = () => {
 			return currentTime > expirationTime; // Return true if token is expired, false otherwise
 		}
 
+		console.log(" from auth allowuser", allowuser);
+
 		if (token && !isTokenExpired(token)) {
+			console.log(" if cond from auth allowuser", allowuser);
+
 			setAllowUser(true);
 		} else {
-			console.log("token is expired or loogeed out");
+			console.log("else cond from auth allowuser", allowuser);
 
-			// Token is expired or not provided, handle accordingly
-			// setAllowUser(false);
-			// Optionally, you can redirect the user to the login page here
-			// window.location.href = "/login";
+			setAllowUser(false);
 		}
-	}, []);
+	}, [allowuser]); // Empty dependency array means this effect runs only once
 
 	return { allowuser, setAllowUser };
 };

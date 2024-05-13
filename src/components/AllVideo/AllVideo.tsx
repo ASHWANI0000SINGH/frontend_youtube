@@ -14,7 +14,7 @@ const AllVideo = () => {
 	// }, []);
 	const getAllVideo = async () => {
 		const result = await axios(`${dev_url}/video/fetch-allvideo`);
-		console.log("all video", result);
+		// console.log("all video", result);
 		// setVideoData(result.data.data);
 		return result.data.data;
 	};
@@ -23,7 +23,7 @@ const AllVideo = () => {
 		queryFn: async () => await getAllVideo(),
 		queryKey: ["allVideo"], //Array according to Documentation
 	});
-	console.log("data", data, "isloading", isLoading, "iserror", isError);
+	// console.log("data", data, "isloading", isLoading, "iserror", isError);
 
 	return (
 		<div className={`${styles.allvideocontainer} text-center `}>

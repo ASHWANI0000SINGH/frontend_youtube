@@ -11,13 +11,13 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import axios from "axios";
 import Link from "next/link";
-import UseAuth from "../UseAuth";
 import Image from "next/image";
 import styles from "./Navbar.module.css";
 import SearchIcon from "@mui/icons-material/Search";
 import HorizontalRuleIcon from "@mui/icons-material/HorizontalRule";
 import { dev_url } from "@/url/hosturl";
 import { toast } from "react-hot-toast";
+import UseAuth from "../UseAuth";
 
 const Navbar = () => {
 	const [showBottomProfile, setShowBottomProfile] = useState(false);
@@ -25,10 +25,10 @@ const Navbar = () => {
 	const loggedInUser = useContext(UserContext);
 	console.log("looged in user", loggedInUser);
 	const { allowuser, setAllowUser } = UseAuth();
-	console.log("allow user from nav", allowuser);
+	// console.log("allow user from nav", allowuser);
 
 	const gotoProfile = () => {
-		console.log("go to clicked");
+		// console.log("go to clicked");
 
 		router.push("/userprofile");
 	};
@@ -38,7 +38,7 @@ const Navbar = () => {
 	};
 
 	const logoutHandler = async () => {
-		console.log("logout checking..");
+		// console.log("logout checking..");
 		try {
 			const result = await axios.post(
 				`${dev_url}/users/logout`,
@@ -52,10 +52,12 @@ const Navbar = () => {
 			if (result.data) {
 				localStorage.clear();
 				setAllowUser(false);
-				router.push("/");
+				// router.push("/");
+
 				toast.success("Succesfully Logged out"); // Displays a success message
+				window.location.href = "/";
 			}
-			console.log("Logged out", result.data);
+			// console.log("Logged out", result.data);
 		} catch (error) {
 			console.error("Error while logging out:", error);
 		}
