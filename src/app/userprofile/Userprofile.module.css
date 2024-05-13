@@ -37,6 +37,8 @@
 
 @media only screen and (max-width: 400px) {
 	.userprofile_container {
+		height: 70vh;
+		/* background-color: green; */
 		flex-direction: column;
 	}
 	.cover_conatiner {
@@ -45,13 +47,15 @@
 	}
 	.coverimage {
 		height: 20vh;
+		/* background-color: yellow; */
 	}
 	.editcoverimg {
 		left: 320px;
 	}
 	.avatarconatainer {
 		left: 30px;
-		bottom: 350px;
+		bottom: 400px;
+		/* background-color: red; */
 	}
 	.moresetting_container {
 		/* background-color: blue; */
