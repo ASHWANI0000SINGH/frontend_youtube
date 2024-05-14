@@ -17,7 +17,6 @@ export interface VideoDataType {
 
 const Page: React.FC = () => {
 	const loggedInUser = useContext(UserContext);
-	console.log("logged in user", loggedInUser);
 	const [loading, setLoading] = useState(false);
 
 	// const ownerArray = loggedInUser && loggedInUser?.loggedInUser;
@@ -51,7 +50,6 @@ const Page: React.FC = () => {
 			formData.owner !== null &&
 			formData.title !== null
 		) {
-			console.log("formdata", formData);
 			try {
 				setLoading(true);
 
@@ -75,12 +73,10 @@ const Page: React.FC = () => {
 						},
 					}
 				);
-				console.log("result");
 				if (result.data) {
 					setLoading(false);
 					router.push("/");
 				}
-				console.log("Video uploaded successfully", result);
 			} catch (error) {
 				console.error("Error uploading video:", error);
 			}

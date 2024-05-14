@@ -72,7 +72,8 @@ const Video: React.FC<{
 						return (
 							<>
 								<div
-									className={`${styles.videocontrooler}  text-center  m-2 p-2  `}
+									className={`${styles.videocontrooler}  text-center  m-2 p-2 cursor-pointer `}
+									onClick={() => routeToIndividualVideo(item)}
 								>
 									<video
 										loop
@@ -81,7 +82,6 @@ const Video: React.FC<{
 										onMouseEnter={handleMouseEnter}
 										onMouseLeave={handleMouseLeave}
 										// controls
-										onClick={() => routeToIndividualVideo(item)}
 									>
 										<source
 											src={item.videoFile}

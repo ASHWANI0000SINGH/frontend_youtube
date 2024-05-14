@@ -45,8 +45,6 @@ const Page: React.FC = () => {
 					setAllowUser(true);
 					setLoading(false);
 
-					console.log("result login", result.data);
-
 					localStorage.setItem(
 						"loggedInUser",
 						JSON.stringify(result.data.user.loggedInUser)
@@ -57,7 +55,6 @@ const Page: React.FC = () => {
 			} catch (error) {
 				setLoading(false);
 				setError(true);
-				console.error("Error logging in:", error);
 			}
 		} else {
 			alert("Please fill the complete form");
@@ -67,7 +64,6 @@ const Page: React.FC = () => {
 		if (LoginRefBtn.current !== null) {
 			LoginRefBtn.current.disabled = true;
 		}
-		console.log(LoginRefBtn);
 		return <p className="text-center">Loading...</p>;
 	}
 	if (error) {

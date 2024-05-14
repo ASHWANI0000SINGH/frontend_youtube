@@ -35,8 +35,6 @@ const Page: React.FC = () => {
 			formData.password !== "" &&
 			formData.username !== ""
 		) {
-			console.log("formdata", formData);
-
 			try {
 				const result = await axios.post(`${dev_url}/users/register`, formData);
 				if (result.data) {
@@ -44,11 +42,9 @@ const Page: React.FC = () => {
 					setLoading(false);
 					router.push("/login");
 				}
-				console.log("Registration successful", result);
 			} catch (error) {
 				setLoading(false);
 				setError(true);
-				console.error("Error registering user:", error);
 			}
 		} else {
 			alert("please fill the complete form");
@@ -58,7 +54,6 @@ const Page: React.FC = () => {
 		if (signUpRefBtn.current !== null) {
 			signUpRefBtn.current.disabled = true;
 		}
-		console.log(signUpRefBtn);
 		return <p>Loading...</p>;
 	}
 	if (error) {

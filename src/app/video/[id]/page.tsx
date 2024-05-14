@@ -34,7 +34,6 @@ const VideoPage = () => {
 						},
 					}
 				);
-				console.log("video by id", result);
 				setVideoData(result.data.data);
 				setLoading(false);
 			} catch (error) {
@@ -55,7 +54,6 @@ const VideoPage = () => {
 						},
 					}
 				);
-				console.log("users videos", result.data);
 				setUserVideoData(result.data.data);
 				setLoading(false);
 			} catch (error) {
@@ -101,7 +99,7 @@ const VideoPage = () => {
 						className={`${styles.video_details} lex flex-col border border-black-200 rounded`}
 					>
 						<div>
-							<h1 className="text-lg font-medium text-start">
+							<h1 className="text-lg font-medium text-wrap text-left">
 								{videodata?.title}
 							</h1>
 							<div className="flex justify-between self-center">
@@ -157,14 +155,14 @@ const VideoPage = () => {
 						{uservideodata.map((item) => (
 							<div
 								key={item._id}
-								className={`${styles.user_videos_video} videocontrooler  text-center`}
+								className={`${styles.user_videos_video} videocontrooler  text-center cursor-pointer`}
+								onClick={() => routeToIndividualVideo(item)}
 							>
 								<video
 									// autoPlay
 									loop
 									muted
 									className="cursor-pointer  border rounded"
-									onClick={() => routeToIndividualVideo(item)}
 								>
 									<source src={item.videoFile} type="video/mp4" />
 								</video>
@@ -183,7 +181,7 @@ const VideoPage = () => {
 											alt="Picture of the author"
 											className="w-14 h-14 rounded-full p-1 text-center"
 										/>
-										<p className="text-lg font-medium text-center">
+										<p className="text-lg font-medium  text-wrap text-left">
 											{item.title}
 										</p>
 									</div>

@@ -8,7 +8,6 @@ import EditIcon from "@mui/icons-material/Edit";
 
 const Profile = () => {
 	const loggedInUser = useContext(UserContext);
-	console.log("logged in user profile", loggedInUser);
 	return (
 		<>
 			<div

@@ -7,7 +7,6 @@ import { buttonVariants } from "@/components/ui/button";
 
 const MoreSettongs = () => {
 	const loggedInUser = useContext(UserContext);
-	console.log("logged in user profile", loggedInUser);
 	const { allowuser } = UseAuth();
 
 	return (

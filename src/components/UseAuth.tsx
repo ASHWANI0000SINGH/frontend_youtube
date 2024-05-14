@@ -20,15 +20,9 @@ const UseAuth = () => {
 			return currentTime > expirationTime; // Return true if token is expired, false otherwise
 		}
 
-		console.log(" from auth allowuser", allowuser);
-
 		if (token && !isTokenExpired(token)) {
-			console.log(" if cond from auth allowuser", allowuser);
-
 			setAllowUser(true);
 		} else {
-			console.log("else cond from auth allowuser", allowuser);
-
 			setAllowUser(false);
 		}
 	}, [allowuser]); // Empty dependency array means this effect runs only once

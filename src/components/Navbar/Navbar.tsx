@@ -23,7 +23,6 @@ const Navbar = () => {
 	const [showBottomProfile, setShowBottomProfile] = useState(false);
 	const router = useRouter();
 	const loggedInUser = useContext(UserContext);
-	console.log("looged in user", loggedInUser);
 	const { allowuser, setAllowUser } = UseAuth();
 	// console.log("allow user from nav", allowuser);
 
