@@ -83,7 +83,7 @@ const VideoPage = () => {
 	return (
 		<>
 			<div
-				className={`${styles.single_video_conatiner} flex mx-20 p-4 h-screen justify-between`}
+				className={`${styles.single_video_conatiner} flex mx-20 p-4  justify-between`}
 			>
 				<div className="text-center margin-auto">
 					{videodata && (
