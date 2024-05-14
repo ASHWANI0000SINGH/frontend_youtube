@@ -77,7 +77,7 @@ const Video: React.FC<{
 									<video
 										loop
 										muted
-										className={`${styles.video} cursor-pointer w-80 h-44  `}
+										className={`${styles.video} cursor-pointer  `}
 										onMouseEnter={handleMouseEnter}
 										onMouseLeave={handleMouseLeave}
 										// controls
@@ -91,7 +91,9 @@ const Video: React.FC<{
 									</video>
 
 									<div className={styles.vediodetials_container}>
-										<div className="flex flex-row  w-80 justify-between ">
+										<div
+											className={`${styles.videodetails_alignment} flex flex-row  justify-between `}
+										>
 											<div className="flex justify-start ">
 												<Image
 													src={

@@ -97,7 +97,9 @@ const VideoPage = () => {
 							<source src={videodata.videoFile} type="video/mp4" />
 						</video>
 					)}
-					<div className="flex flex-col border border-black-200 rounded">
+					<div
+						className={`${styles.video_details} lex flex-col border border-black-200 rounded`}
+					>
 						<div>
 							<h1 className="text-lg font-medium text-start">
 								{videodata?.title}
@@ -155,13 +157,13 @@ const VideoPage = () => {
 						{uservideodata.map((item) => (
 							<div
 								key={item._id}
-								className="videocontrooler w-80 h-80 text-center"
+								className={`${styles.user_videos_video} videocontrooler  text-center`}
 							>
 								<video
 									// autoPlay
 									loop
 									muted
-									className="cursor-pointer w-80 h-44 border rounded"
+									className="cursor-pointer  border rounded"
 									onClick={() => routeToIndividualVideo(item)}
 								>
 									<source src={item.videoFile} type="video/mp4" />

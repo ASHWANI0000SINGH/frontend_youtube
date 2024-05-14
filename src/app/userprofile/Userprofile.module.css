@@ -35,11 +35,12 @@
 	border-color: #dfdfdf;
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 450px) {
 	.userprofile_container {
 		/* height: 70vh; */
 		/* background-color: green; */
 		flex-direction: column;
+		height: 50vh;
 	}
 	.cover_conatiner {
 		/* background-color: green; */
@@ -50,11 +51,15 @@
 		/* background-color: yellow; */
 	}
 	.editcoverimg {
-		left: 320px;
+		/* left: 325px; */
+		left: calc(100% - 50px);
+		/* total 375 px =100% */
+		/* cover container width 325px */
 	}
 	.avatarconatainer {
-		left: 30px;
-		bottom: 400px;
+		position: absolute;
+		left: 3vh;
+		bottom: 60vh;
 		/* background-color: red; */
 	}
 	.moresetting_container {

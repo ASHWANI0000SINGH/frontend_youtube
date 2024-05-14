@@ -21,7 +21,7 @@ button:hover {
 	/* border: solid whitesmoke; */
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 450px) {
 	.video-container {
 		/* background-color: red; */
 		margin-left: 0;

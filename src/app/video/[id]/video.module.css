@@ -11,7 +11,20 @@
 	width: auto;
 	padding: 5px;
 }
-@media only screen and (max-width: 400px) {
+.user_videos_video {
+	width: 20rem;
+	height: 20rem;
+}
+.video {
+	height: 66.666667%;
+}
+@media only screen and (max-width: 450px) {
+	.video {
+		height: 100%;
+		/* bottom: 100px; */
+		margin-top: 0 0 100p 0x;
+		/* background-color: aquamarine; */
+	}
 	.single_video_conatiner {
 		width: 100%;
 		flex-direction: column;
@@ -28,10 +41,18 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		margin-top: 100px;
 
 		/* background-color: green; */
 		/* margin: 0; */
 		/* padding: 0; */
 		width: 100%;
+	}
+	.user_videos_video {
+		width: 100%;
+		height: 100%;
+	}
+	.video_details {
+		border: none;
 	}
 }
