@@ -1,13 +1,55 @@
 "use client";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { UserContext } from "../provider";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./Userprofile.module.css";
 import EditIcon from "@mui/icons-material/Edit";
+import { dev_url } from "@/url/hosturl";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const Profile = () => {
+	const [chnagefullName, setChangeFullName] = useState(false);
 	const loggedInUser = useContext(UserContext);
+
+	const [fullName, setFullName] = useState("");
+
+	const formSubmitHandler = async () => {
+		setChangeFullName(false);
+
+		if (fullName !== "") {
+			try {
+				console.log("fullname", fullName);
+				const result = await axios.post(
+					`${dev_url}/users/updateFullName`,
+					{ fullName },
+					{
+						headers: {
+							Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+						},
+					}
+				);
+				toast.success("Full Name Updated");
+				console.log("Full Name Updated", result.data);
+				setFullName("");
+			} catch (error) {
+				console.error("Error While Full Name Updated:", error);
+			}
+		} else {
+			console.log("formdata", fullName);
+			alert("please fill the complete form");
+		}
+	};
+	const router = useRouter();
+
+	const gotochnageMoreSettingsPage = () => {
+		router.push("/updateaccdetails");
+	};
+	const gotochnagePassword = () => {
+		router.push("/changecurrentpassword");
+	};
 	return (
 		<>
 			<div
@@ -52,14 +94,39 @@ const Profile = () => {
 						/>
 					</div>
 					<div className={styles.about_container}>
-						<h1 className=" mx-7 text-lg font-semibold">
-							{loggedInUser?.loggedInUser?.fullName}
-						</h1>
-						<div>
-							<button>
-								<EditIcon />
-							</button>
-						</div>
+						{!chnagefullName ? (
+							<>
+								<h1 className=" mx-7 text-lg font-semibold">
+									{loggedInUser?.loggedInUser?.fullName}
+								</h1>
+								<div>
+									<button onClick={() => setChangeFullName(true)}>
+										<EditIcon />
+									</button>
+								</div>
+							</>
+						) : (
+							<>
+								<div className="flex justify-between  w-full">
+									<div>
+										<input
+											type="text"
+											placeholder="update full name "
+											className="mx-7 text-lg "
+											onChange={(e) => setFullName(e.target.value)}
+										/>
+									</div>
+									<div>
+										<button
+											onClick={formSubmitHandler}
+											className="bg-black text-white p-1"
+										>
+											Submit
+										</button>
+									</div>
+								</div>
+							</>
+						)}
 					</div>
 				</div>
 				<div
@@ -71,13 +138,13 @@ const Profile = () => {
 					</div>
 					<div className="flex justify-between  p-2 border  border-b-gray-300 text-center">
 						<h1> Change Passowrd</h1>
-						<button>
+						<button onClick={gotochnagePassword}>
 							<EditIcon />
 						</button>
 					</div>
 					<div className="flex justify-between  p-2 border  border-b-gray-300 text-center">
 						<h1> More Settings</h1>
-						<button>
+						<button onClick={gotochnageMoreSettingsPage}>
 							<EditIcon />
 						</button>
 					</div>

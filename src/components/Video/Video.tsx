@@ -78,10 +78,11 @@ const Video: React.FC<{
 									<video
 										loop
 										muted
-										className={`${styles.video} cursor-pointer  `}
+										className={`${styles.video}  cursor-pointer  `}
 										onMouseEnter={handleMouseEnter}
 										onMouseLeave={handleMouseLeave}
 										// controls
+										// playsInline
 									>
 										<source
 											src={item.videoFile}
