@@ -107,7 +107,9 @@ const Profile = () => {
 							</>
 						) : (
 							<>
-								<div className="flex justify-between  w-full">
+								<div
+									className={`${styles.full_name_conatiner} flex justify-between  w-full`}
+								>
 									<div>
 										<input
 											type="text"

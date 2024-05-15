@@ -70,10 +70,11 @@
 		margin-left: 0;
 		margin-right: 0;
 	}
-	.about_container {
-		/* background-color: yellow; */
-		/* padding-top: 150px; */
-		/* text-align: center; */
-		/* margin: 0; */
+
+	.full_name_conatiner input {
+		/* background-color: pink; */
+		width: 150px;
+		margin: 0;
+		border: 1px solid black;
 	}
 }
