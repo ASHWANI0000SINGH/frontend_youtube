@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { ChangeEvent, useContext, useState } from "react";
 import { UserContext } from "../provider";
 import Link from "next/link";
 import Image from "next/image";
@@ -9,15 +9,27 @@ import { dev_url } from "@/url/hosturl";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { Input } from "postcss";
+import { UpdateAvaterType, UpdateCoverImgType } from "../allinterface";
 
 const Profile = () => {
-	const [chnagefullName, setChangeFullName] = useState(false);
+	const [editfullname, setEditFullName] = useState(false);
+	const [editcoverimage, setEditCoverImage] = useState(false);
+	const [editavatar, setEditAvatar] = useState(false);
+
 	const loggedInUser = useContext(UserContext);
 
 	const [fullName, setFullName] = useState("");
-
-	const formSubmitHandler = async () => {
-		setChangeFullName(false);
+	const [coverformData, setCoverFormData] = useState<UpdateCoverImgType>({
+		coverImage: "",
+	});
+	const [avatarformData, setAvatarFormData] = useState<UpdateAvaterType>({
+		avatar: "",
+	});
+	const [loading, setLoading] = useState(false);
+	const router = useRouter();
+	const updateFullNameHandler = async () => {
+		setEditFullName(false);
 
 		if (fullName !== "") {
 			try {
@@ -42,7 +54,85 @@ const Profile = () => {
 			alert("please fill the complete form");
 		}
 	};
-	const router = useRouter();
+	const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+		if (e.target.files) {
+			setCoverFormData({
+				...coverformData,
+				[e.target.name]: e.target.files[0],
+			});
+		}
+	};
+	const updateCoverImageHandler = async () => {
+		setEditCoverImage(false);
+		if (coverformData.coverImage !== "") {
+			console.log("formdata", coverformData);
+
+			try {
+				setLoading(true);
+
+				const formDataToSend = new FormData();
+				if (coverformData.coverImage) {
+					formDataToSend.append("coverImage", coverformData.coverImage);
+				}
+
+				const result = await axios.post(
+					`${dev_url}/users/update-coverImage`,
+					formDataToSend,
+					{
+						headers: {
+							Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+						},
+					}
+				);
+				if (result.data) {
+					setLoading(false);
+
+					toast.success("cover image updated");
+				}
+				console.log("cover Image successfully updated", result);
+			} catch (error) {
+				console.error("Error while updating cover Image:", error);
+			}
+		} else {
+			alert("please fill the complete form");
+		}
+	};
+
+	const updateAvatarImageHandler = async () => {
+		setEditAvatar(false);
+		if (avatarformData.avatar !== "") {
+			console.log("formdata", avatarformData);
+
+			// try {
+			// 	setLoading(true);
+
+			// 	const formDataToSend = new FormData();
+			// 	if (avatarformData.avatar) {
+			// 		formDataToSend.append("coverImage", avatarformData.avatar);
+			// 	}
+
+			// 	const result = await axios.post(
+			// 		`${dev_url}/users/update-userAvatar`,
+			// 		formDataToSend,
+			// 		{
+			// 			headers: {
+			// 				Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+			// 			},
+			// 		}
+			// 	);
+			// 	if (result.data) {
+			// 		setLoading(false);
+
+			// 		toast.success("avatar image updated");
+			// 	}
+			// 	console.log("Avatar Image successfully updated", result);
+			// } catch (error) {
+			// 	console.error("Error while Avatar  Image:", error);
+			// }
+		} else {
+			alert("please fill the complete form");
+		}
+	};
 
 	const gotochnageMoreSettingsPage = () => {
 		router.push("/updateaccdetails");
@@ -64,43 +154,119 @@ const Profile = () => {
 								loggedInUser?.loggedInUser &&
 								typeof loggedInUser.loggedInUser.coverImage === "string"
 									? loggedInUser.loggedInUser.coverImage
-									: "/placeholder.jpg" // Provide a placeholder image URL or adjust as needed
+									: "https://placehold.co/1200x450" // Provide a placeholder image URL or adjust as needed
 							}
 							width={500}
 							height={500}
 							quality={10}
-							alt="looged in aimage"
-							className={`${styles.coverimage} border  rounded-b rounded-t`}
+							alt={"looged in aimage"}
+							className={`${styles.coverimage} border  rounded-b rounded-t relative`}
 						/>
+
 						<div className={styles.editcoverimg}>
-							<button>
-								<EditIcon />
-							</button>
+							{editcoverimage ? (
+								<>
+									<div>
+										<div>
+											<input
+												className={`${styles.coverImage_container_mobile} absolute  right-10  top-2`}
+												type="file"
+												name="coverImage"
+												onChange={handleFileChange}
+												placeholder="cover Image"
+											/>
+										</div>
+										<div>
+											<button
+												className={`${styles.coverImage_container_button} bg-black absolute right-7  text-white p-1 `}
+												type="submit"
+												onClick={updateCoverImageHandler}
+											>
+												Update
+											</button>
+										</div>
+									</div>
+								</>
+							) : (
+								<>
+									{!loading && (
+										<button
+											type="button"
+											onClick={() => setEditCoverImage(true)}
+										>
+											<EditIcon />
+										</button>
+									)}
+								</>
+							)}
+							{loading && (
+								<p className="text-center absolute right-10 top-1 bg-white">
+									Uploading.....
+								</p>
+							)}
 						</div>
 					</div>
-					<div className={styles.avatarconatainer}>
+					<div className={`${styles.avatarconatainer} `}>
 						<Image
 							src={
 								loggedInUser?.loggedInUser &&
 								typeof loggedInUser.loggedInUser.avatar === "string"
 									? loggedInUser.loggedInUser.avatar
-									: "/placeholder.jpg" // Provide a placeholder image URL or adjust as needed
+									: "https://placehold.co/60x60" // Provide a placeholder image URL or adjust as needed
 							}
-							width={500}
-							height={500}
+							width={200}
+							height={200}
 							quality={10}
 							alt="looged in aimage"
-							className="w-40 h-40  rounded-full"
+							className={`${styles.avatar_image}  rounded-full relative border border-black `}
 						/>
+
+						{editavatar ? (
+							<>
+								<input
+									className="absolute  top-6   left-6"
+									type="file"
+									name="avatar"
+									onChange={handleFileChange}
+									placeholder="avatar Image"
+								/>
+								<br />
+								<button
+									className=" bg-black absolute  bottom-10 left-10  text-white p-1 "
+									type="submit"
+									onClick={updateAvatarImageHandler}
+								>
+									Update
+								</button>
+							</>
+						) : (
+							<>
+								{!loading && (
+									<button
+										className="absolute top-5  right-10"
+										onClick={() => setEditAvatar(true)}
+									>
+										<EditIcon />
+									</button>
+								)}
+							</>
+						)}
+						{loading && (
+							<p className="text-center absolute right-10 top-1 bg-white">
+								Uploading.....
+							</p>
+						)}
 					</div>
 					<div className={styles.about_container}>
-						{!chnagefullName ? (
+						{!editfullname ? (
 							<>
 								<h1 className=" mx-7 text-lg font-semibold">
-									{loggedInUser?.loggedInUser?.fullName}
+									{loggedInUser && loggedInUser?.fullName
+										? loggedInUser.loggedInUser?.fullName
+										: "null"}
 								</h1>
 								<div>
-									<button onClick={() => setChangeFullName(true)}>
+									<button onClick={() => setEditFullName(true)}>
 										<EditIcon />
 									</button>
 								</div>
@@ -120,7 +286,7 @@ const Profile = () => {
 									</div>
 									<div>
 										<button
-											onClick={formSubmitHandler}
+											onClick={updateFullNameHandler}
 											className="bg-black text-white p-1"
 										>
 											Submit

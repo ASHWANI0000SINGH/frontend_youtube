@@ -106,16 +106,17 @@ const Navbar = () => {
 								</div>
 								<div className="cursor-pointer w-10">
 									<Image
-										src={
-											loggedInUser?.loggedInUser &&
-											typeof loggedInUser.loggedInUser.avatar === "string"
-												? loggedInUser.loggedInUser.avatar
-												: "/placeholder.jpg" // Provide a placeholder image URL or adjust as needed
-										}
-										width={500}
+										// src={
+										// 	loggedInUser?.loggedInUser &&
+										// 	typeof loggedInUser.loggedInUser.avatar === "string"
+										// 		? loggedInUser.loggedInUser.avatar
+										// 		: "https://placehold.co/600x400" // Provide a placeholder image URL or adjust as needed
+										// }
+										src="https://placehold.co/20x20"
+										width={800}
 										height={500}
 										quality={10}
-										alt="looged in aimage"
+										alt="logo in aimage"
 										className="w-6 h-6 rounded-full"
 										onClick={() => setShowBottomProfile(!showBottomProfile)}
 									/>

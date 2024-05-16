@@ -58,9 +58,15 @@
 	}
 	.avatarconatainer {
 		position: absolute;
-		left: 3vh;
+		left: 6vh;
 		bottom: 60vh;
+		/* width: 60px;
+		height: 60px; */
 		/* background-color: red; */
+	}
+	.avatar_image {
+		width: 100px;
+		height: 100px;
 	}
 	.moresetting_container {
 		/* background-color: blue; */
@@ -76,5 +82,25 @@
 		width: 150px;
 		margin: 0;
 		border: 1px solid black;
+	}
+	.coverImage_container_mobile {
+		right: -80px;
+		/* z-index: 100; */
+		top: 10px;
+	}
+	.editcoverimg {
+		position: absolute;
+		background-color: white;
+		/* top: 110px; */
+		left: 300px;
+		/* width: 30px; */
+		/* height: 30px; */
+		text-align: center;
+
+		/* border-radius: 100px; */
+	}
+	.coverImage_container_button {
+		right: -36px;
+		top: 10px;
 	}
 }
