@@ -27,6 +27,8 @@ const Profile = () => {
 		avatar: "",
 	});
 	const [loading, setLoading] = useState(false);
+	const [loading2, setLoading2] = useState(false);
+
 	const router = useRouter();
 	const updateFullNameHandler = async () => {
 		setEditFullName(false);
@@ -55,13 +57,30 @@ const Profile = () => {
 		}
 	};
 	const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+		console.log("e.target", e.target.name);
 		if (e.target.files) {
-			setCoverFormData({
-				...coverformData,
-				[e.target.name]: e.target.files[0],
-			});
+			if (e.target.name === "coverImage") {
+				setCoverFormData({
+					...coverformData,
+					[e.target.name]: e.target.files[0],
+				});
+			}
+			if (e.target.name === "avatar") {
+				setAvatarFormData({
+					...avatarformData,
+					[e.target.name]: e.target.files[0],
+				});
+			}
 		}
 	};
+	// const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+	// 	if (e.target.files) {
+	// 		setAvatarFormData({
+	// 			...coverformData,
+	// 			[e.target.name]: e.target.files[0],
+	// 		});
+	// 	}
+	// };
 	const updateCoverImageHandler = async () => {
 		setEditCoverImage(false);
 		if (coverformData.coverImage !== "") {
@@ -103,32 +122,32 @@ const Profile = () => {
 		if (avatarformData.avatar !== "") {
 			console.log("formdata", avatarformData);
 
-			// try {
-			// 	setLoading(true);
+			try {
+				setLoading2(true);
 
-			// 	const formDataToSend = new FormData();
-			// 	if (avatarformData.avatar) {
-			// 		formDataToSend.append("coverImage", avatarformData.avatar);
-			// 	}
+				const formDataToSend = new FormData();
+				if (avatarformData.avatar) {
+					formDataToSend.append("avatar", avatarformData.avatar);
+				}
 
-			// 	const result = await axios.post(
-			// 		`${dev_url}/users/update-userAvatar`,
-			// 		formDataToSend,
-			// 		{
-			// 			headers: {
-			// 				Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-			// 			},
-			// 		}
-			// 	);
-			// 	if (result.data) {
-			// 		setLoading(false);
+				const result = await axios.post(
+					`${dev_url}/users/update-userAvatar`,
+					formDataToSend,
+					{
+						headers: {
+							Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+						},
+					}
+				);
+				if (result.data) {
+					setLoading2(false);
 
-			// 		toast.success("avatar image updated");
-			// 	}
-			// 	console.log("Avatar Image successfully updated", result);
-			// } catch (error) {
-			// 	console.error("Error while Avatar  Image:", error);
-			// }
+					toast.success("avatar image updated");
+				}
+				console.log("Avatar Image successfully updated", result);
+			} catch (error) {
+				console.error("Error while Avatar  Image:", error);
+			}
 		} else {
 			alert("please fill the complete form");
 		}
@@ -241,7 +260,7 @@ const Profile = () => {
 							</>
 						) : (
 							<>
-								{!loading && (
+								{!loading2 && (
 									<button
 										className="absolute top-5  right-10"
 										onClick={() => setEditAvatar(true)}
@@ -251,7 +270,7 @@ const Profile = () => {
 								)}
 							</>
 						)}
-						{loading && (
+						{loading2 && (
 							<p className="text-center absolute right-10 top-1 bg-white">
 								Uploading.....
 							</p>

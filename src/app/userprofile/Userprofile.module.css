@@ -34,6 +34,10 @@
 .moresetting_container {
 	border-color: #dfdfdf;
 }
+.avatar_image {
+	width: 200px;
+	height: 200px;
+}
 
 @media only screen and (max-width: 450px) {
 	.userprofile_container {
