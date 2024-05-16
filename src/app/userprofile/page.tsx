@@ -261,7 +261,7 @@ const Profile = () => {
 						{!editfullname ? (
 							<>
 								<h1 className=" mx-7 text-lg font-semibold">
-									{loggedInUser && loggedInUser?.fullName
+									{loggedInUser && loggedInUser.loggedInUser?.fullName
 										? loggedInUser.loggedInUser?.fullName
 										: "null"}
 								</h1>
