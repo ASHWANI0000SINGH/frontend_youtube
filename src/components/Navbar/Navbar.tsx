@@ -106,13 +106,12 @@ const Navbar = () => {
 								</div>
 								<div className="cursor-pointer w-10">
 									<Image
-										// src={
-										// 	loggedInUser?.loggedInUser &&
-										// 	typeof loggedInUser.loggedInUser.avatar === "string"
-										// 		? loggedInUser.loggedInUser.avatar
-										// 		: "https://placehold.co/600x400" // Provide a placeholder image URL or adjust as needed
-										// }
-										src="https://placehold.co/20x20"
+										src={
+											loggedInUser?.loggedInUser &&
+											typeof loggedInUser.loggedInUser.avatar === "string"
+												? loggedInUser.loggedInUser.avatar
+												: "https://placehold.co/20x20" // Provide a placeholder image URL or adjust as needed
+										}
 										width={800}
 										height={500}
 										quality={10}
