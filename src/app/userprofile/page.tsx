@@ -13,6 +13,8 @@ import { Input } from "postcss";
 import { UpdateAvaterType, UpdateCoverImgType } from "../allinterface";
 import LogoutIcon from "@mui/icons-material/Logout";
 import UseAuth from "@/components/UseAuth";
+import EditModal from "@/components/EditModal/EditModal";
+import EditModal2 from "@/components/EditModal/EditModal2";
 
 const Profile = () => {
 	const [editfullname, setEditFullName] = useState(false);
@@ -61,7 +63,7 @@ const Profile = () => {
 		}
 	};
 	const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-		console.log("e.target", e.target.name);
+		console.log("e.target from chnage Gandler", e.target.name);
 		if (e.target.files) {
 			if (e.target.name === "coverImage") {
 				setCoverFormData({
@@ -77,15 +79,9 @@ const Profile = () => {
 			}
 		}
 	};
-	// const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-	// 	if (e.target.files) {
-	// 		setAvatarFormData({
-	// 			...coverformData,
-	// 			[e.target.name]: e.target.files[0],
-	// 		});
-	// 	}
-	// };
+
 	const updateCoverImageHandler = async () => {
+		console.log("update cover image");
 		setEditCoverImage(false);
 		if (coverformData.coverImage !== "") {
 			console.log("formdata", coverformData);
@@ -188,6 +184,25 @@ const Profile = () => {
 	const gotochnagePassword = () => {
 		router.push("/changecurrentpassword");
 	};
+	const [isModalOpen, setIsModalOpen] = useState(false);
+
+	const handleEditButtonClickcover = () => {
+		setEditCoverImage(true);
+	};
+
+	const handleCloseModalCover = () => {
+		setEditCoverImage(false);
+	};
+
+	const handleEditButtonClickAvatar = () => {
+		console.log("clicked avatar");
+		setEditAvatar(true);
+	};
+
+	const handleCloseModalAvatar = () => {
+		setEditAvatar(false);
+	};
+
 	return (
 		<>
 			<div
@@ -211,7 +226,7 @@ const Profile = () => {
 							className={`${styles.coverimage} border  rounded-b rounded-t relative`}
 						/>
 
-						<div className={styles.editcoverimg}>
+						{/* <div className={styles.editcoverimg}>
 							{editcoverimage ? (
 								<>
 									<div>
@@ -252,6 +267,23 @@ const Profile = () => {
 									Uploading.....
 								</p>
 							)}
+						</div> */}
+
+						<div className={styles.editcoverimg}>
+							<button
+								className="text-center "
+								onClick={handleEditButtonClickcover}
+							>
+								<EditIcon />
+							</button>
+							{editcoverimage && (
+								<EditModal
+									onClose={handleCloseModalCover}
+									changehandler={handleFileChange}
+									submitHandler={updateAvatarImageHandler}
+									coverImage={"coverImage"}
+								/>
+							)}
 						</div>
 					</div>
 					<div className={`${styles.avatarconatainer} `}>
@@ -269,40 +301,18 @@ const Profile = () => {
 							className={`${styles.avatar_image}  rounded-full relative border border-black `}
 						/>
 
-						{editavatar ? (
-							<>
-								<input
-									className="absolute  top-6   left-6"
-									type="file"
-									name="avatar"
-									onChange={handleFileChange}
-									placeholder="avatar Image"
-								/>
-								<br />
-								<button
-									className=" bg-black absolute  bottom-10 left-10  text-white p-1 "
-									type="submit"
-									onClick={updateAvatarImageHandler}
-								>
-									Update
-								</button>
-							</>
-						) : (
-							<>
-								{!loading2 && (
-									<button
-										className="absolute top-5  right-10"
-										onClick={() => setEditAvatar(true)}
-									>
-										<EditIcon />
-									</button>
-								)}
-							</>
-						)}
-						{loading2 && (
-							<p className="text-center absolute right-10 top-1 bg-white">
-								Uploading.....
-							</p>
+						<div className={styles.editavatarImage}>
+							<button onClick={handleEditButtonClickAvatar}>
+								<EditIcon />
+							</button>
+						</div>
+						{editavatar && (
+							<EditModal2
+								onClose={handleCloseModalAvatar}
+								changehandler={handleFileChange}
+								submitHandler={updateAvatarImageHandler}
+								avatar={"avatar"}
+							/>
 						)}
 					</div>
 					<div className={styles.about_container}>

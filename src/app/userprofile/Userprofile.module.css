@@ -60,6 +60,15 @@
 	display: block; /* Show the tooltip when hovering over the button */
 }
 
+.editavatarImage {
+	/* background-color: red; */
+	/* color: white; */
+	border: white;
+	border: 1px solid white;
+	position: absolute;
+	top: 150px;
+	left: 130px;
+}
 @media only screen and (max-width: 450px) {
 	.userprofile_container {
 		/* height: 70vh; */
@@ -89,6 +98,7 @@
 		height: 60px; */
 		/* background-color: red; */
 	}
+
 	.avatar_image {
 		width: 100px;
 		height: 100px;
@@ -127,5 +137,9 @@
 	.coverImage_container_button {
 		right: -36px;
 		top: 10px;
+	}
+	.editavatarImage {
+		top: 26px;
+		left: 60px;
 	}
 }
