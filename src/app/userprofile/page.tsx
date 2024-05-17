@@ -280,7 +280,7 @@ const Profile = () => {
 								<EditModal
 									onClose={handleCloseModalCover}
 									changehandler={handleFileChange}
-									submitHandler={updateAvatarImageHandler}
+									submitHandler={updateCoverImageHandler}
 									coverImage={"coverImage"}
 								/>
 							)}
