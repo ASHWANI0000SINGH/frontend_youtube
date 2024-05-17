@@ -120,16 +120,20 @@ const Navbar = () => {
 										onClick={() => setShowBottomProfile(!showBottomProfile)}
 									/>
 									{showBottomProfile && (
-										<div className="absolute ml-2">
-											<div className="text-sm relative p-1">
+										<div className={`absolute ml-3 `}>
+											<div
+												className={`${styles.tooltipprofile}  text-xs p-1 relative   bg-white text-black  border-black rounded-full text-center`}
+											>
 												<AccountCircleIcon
-													className="text-lg"
+													// className="text-xl"
 													onClick={gotoProfile}
 												/>
 											</div>
-											<div className="text-sm p-1">
+											{/* <div
+												className={`${styles.tooltiplogout}  text-xs p-1   text-red-400   border-black rounded-full text-center`}
+											>
 												<LogoutIcon onClick={logoutHandler} />
-											</div>
+											</div> */}
 										</div>
 									)}
 								</div>

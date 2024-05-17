@@ -11,6 +11,8 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Input } from "postcss";
 import { UpdateAvaterType, UpdateCoverImgType } from "../allinterface";
+import LogoutIcon from "@mui/icons-material/Logout";
+import UseAuth from "@/components/UseAuth";
 
 const Profile = () => {
 	const [editfullname, setEditFullName] = useState(false);
@@ -26,6 +28,8 @@ const Profile = () => {
 	const [avatarformData, setAvatarFormData] = useState<UpdateAvaterType>({
 		avatar: "",
 	});
+	const { allowuser, setAllowUser } = UseAuth();
+
 	const [loading, setLoading] = useState(false);
 	const [loading2, setLoading2] = useState(false);
 
@@ -150,6 +154,31 @@ const Profile = () => {
 			}
 		} else {
 			alert("please fill the complete form");
+		}
+	};
+	const logoutHandler = async () => {
+		// console.log("logout checking..");
+		try {
+			const result = await axios.post(
+				`${dev_url}/users/logout`,
+				{},
+				{
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+					},
+				}
+			);
+			if (result.data) {
+				localStorage.clear();
+				setAllowUser(false);
+				// router.push("/");
+
+				toast.success("Succesfully Logged out"); // Displays a success message
+				window.location.href = "/";
+			}
+			// console.log("Logged out", result.data);
+		} catch (error) {
+			console.error("Error while logging out:", error);
 		}
 	};
 
@@ -334,6 +363,14 @@ const Profile = () => {
 						<button onClick={gotochnageMoreSettingsPage}>
 							<EditIcon />
 						</button>
+					</div>
+
+					<div
+						className={`${styles.tooltiplogout}  text-xs  bg-red-500 text-white  p-2 border  border-b-gray-300 text-center cursor-pointer`}
+					>
+						{/* <button> */}
+						<LogoutIcon onClick={logoutHandler} />
+						{/* </button> */}
 					</div>
 				</div>
 			</div>

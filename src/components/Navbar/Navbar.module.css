@@ -51,6 +51,50 @@
 	margin-top: 6px;
 }
 
+.tooltiplogout {
+	position: relative; /* Required for the tooltip to be positioned relative to the button */
+}
+
+.tooltiplogout::after {
+	content: "Logout"; /* The text to show in the tooltip */
+	display: none; /* Hide the tooltip by default */
+	position: absolute; /* Position the tooltip relative to the button */
+	bottom: 100%; /* Position the tooltip above the button */
+	left: 50%; /* Center the tooltip horizontally */
+	transform: translateX(-50%); /* Center the tooltip horizontally */
+	background-color: #000; /* Tooltip background color */
+	color: #fff; /* Tooltip text color */
+	padding: 5px; /* Add some padding to the tooltip */
+	border-radius: 5px; /* Add rounded corners to the tooltip */
+	white-space: nowrap; /* Prevent line breaks in tooltip text */
+}
+
+.tooltiplogout:hover::after {
+	display: block; /* Show the tooltip when hovering over the button */
+}
+
+.tooltipprofile {
+	position: relative; /* Required for the tooltipprofile to be positioned relative to the button */
+}
+
+.tooltipprofile::after {
+	content: "Profile"; /* The text to show in the tooltipprofile */
+	display: none; /* Hide the tooltipprofile by default */
+	position: absolute; /* Position the tooltipprofile relative to the button */
+	bottom: 100%; /* Position the tooltipprofile above the button */
+	left: 50%; /* Center the tooltipprofile horizontally */
+	transform: translateX(-50%); /* Center the tooltipprofile horizontally */
+	background-color: #000; /* tooltipprofile background color */
+	color: #fff; /* tooltipprofile text color */
+	padding: 5px; /* Add some padding to the tooltipprofile */
+	border-radius: 5px; /* Add rounded corners to the tooltipprofile */
+	white-space: nowrap; /* Prevent line breaks in tooltipprofile text */
+}
+
+.tooltipprofile:hover::after {
+	display: block; /* Show the tooltipprofile when hovering over the button */
+}
+
 @media only screen and (max-width: 450px) {
 	.search_box_container {
 		display: none;

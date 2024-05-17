@@ -8,9 +8,9 @@ import { UserContext } from "../provider";
 import { dev_url } from "@/url/hosturl";
 
 export interface VideoDataType {
-	duration: string;
+	duration?: string;
 	title: string;
-	thumbnail: string;
+	thumbnail?: string;
 	owner: string;
 	videoFile: File | string;
 }
@@ -22,10 +22,10 @@ const Page: React.FC = () => {
 	// const ownerArray = loggedInUser && loggedInUser?.loggedInUser;
 
 	const [formData, setFormData] = useState<VideoDataType>({
-		thumbnail: "",
+		// thumbnail: "",
 		videoFile: "",
 		title: "",
-		duration: "",
+		// duration: "",
 		owner: "",
 	});
 
@@ -45,8 +45,8 @@ const Page: React.FC = () => {
 		e.preventDefault();
 		if (
 			formData.videoFile !== null &&
-			formData.duration !== null &&
-			formData.thumbnail !== null &&
+			// formData.duration !== null &&
+			// formData.thumbnail !== null &&
 			formData.owner !== null &&
 			formData.title !== null
 		) {
@@ -54,9 +54,9 @@ const Page: React.FC = () => {
 				setLoading(true);
 
 				const formDataToSend = new FormData();
-				formDataToSend.append("duration", formData.duration);
+				// formDataToSend.append("duration", formData.duration);
 				formDataToSend.append("title", formData.title);
-				formDataToSend.append("thumbnail", formData.thumbnail);
+				// formDataToSend.append("thumbnail", formData.thumbnail);
 				if (loggedInUser && loggedInUser.loggedInUser) {
 					formDataToSend.append("owner", loggedInUser?.loggedInUser?._id || "");
 				}
@@ -104,20 +104,20 @@ const Page: React.FC = () => {
 						onChange={handleChange}
 					/>
 					<br />
-					<Input
+					{/* <Input
 						type="text"
 						name="thumbnail"
 						placeholder="thumbnail"
 						onChange={handleChange}
 					/>
-					<br />
-					<Input
+					<br /> */}
+					{/* <Input
 						type="text"
 						name="duration"
 						placeholder="duration"
 						onChange={handleChange}
 					/>
-					<br />
+					<br /> */}
 					<Input type="file" name="videoFile" onChange={handleFileChange} />
 					<br />
 					<button className="bg-black text-white p-2 " type="submit">
