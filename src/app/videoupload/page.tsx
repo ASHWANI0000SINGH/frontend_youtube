@@ -22,7 +22,7 @@ const Page: React.FC = () => {
 	// const ownerArray = loggedInUser && loggedInUser?.loggedInUser;
 
 	const [formData, setFormData] = useState<VideoDataType>({
-		// thumbnail: "",
+		thumbnail: "",
 		videoFile: "",
 		title: "",
 		// duration: "",
@@ -46,7 +46,7 @@ const Page: React.FC = () => {
 		if (
 			formData.videoFile !== null &&
 			// formData.duration !== null &&
-			// formData.thumbnail !== null &&
+			formData.thumbnail !== null &&
 			formData.owner !== null &&
 			formData.title !== null
 		) {
@@ -56,7 +56,7 @@ const Page: React.FC = () => {
 				const formDataToSend = new FormData();
 				// formDataToSend.append("duration", formData.duration);
 				formDataToSend.append("title", formData.title);
-				// formDataToSend.append("thumbnail", formData.thumbnail);
+				formDataToSend.append("thumbnail", "thumbnail");
 				if (loggedInUser && loggedInUser.loggedInUser) {
 					formDataToSend.append("owner", loggedInUser?.loggedInUser?._id || "");
 				}
