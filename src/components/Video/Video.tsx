@@ -34,24 +34,26 @@ const Video: React.FC<{
 		e: React.MouseEvent<HTMLVideoElement, MouseEvent>
 	) => {
 		const vid = e.target as HTMLVideoElement;
-		// console.log("video on leave", vid.currentTime);
-		// console.log("video duration", vid.duration);
-
-		vid.muted = true;
-		vid.defaultMuted = true;
-		vid.play();
-		vid.controls = true;
+		if (window.innerWidth > 450) {
+			console.log("window inner width", window.innerWidth);
+			vid.muted = true;
+			vid.defaultMuted = true;
+			vid.play();
+			vid.controls = true;
+		}
 	};
 	const handleMouseLeave = (
 		e: React.MouseEvent<HTMLVideoElement, MouseEvent>
 	) => {
 		const vid = e.target as HTMLVideoElement;
 		// console.log("video on leave", vid.currentTime);
-		vid.muted = false;
-		vid.defaultMuted = false;
+		if (window.innerWidth > 450) {
+			vid.muted = false;
+			vid.defaultMuted = false;
 
-		vid.pause();
-		vid.controls = false;
+			vid.pause();
+			vid.controls = false;
+		}
 	};
 	if (isLoading) {
 		return <p className="text-center">Loading ...</p>;
