@@ -122,7 +122,7 @@ const Video: React.FC<{
 											</div>
 										</div>
 
-										<div className="flex flex-col justify-end  items-start   mx-10  text-gray-400 text-sm">
+										<div className="  flex  justify-start     mx-10  text-gray-400 text-sm">
 											<div className="flex">
 												<p>
 													{Array.isArray(item.owner) &&

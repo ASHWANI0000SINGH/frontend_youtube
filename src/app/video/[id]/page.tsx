@@ -12,6 +12,10 @@ import Image from "next/image";
 import { VideoType } from "@/app/allinterface";
 import { dev_url } from "@/url/hosturl";
 import styles from "./video.module.css";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import DoneIcon from "@mui/icons-material/Done";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+
 const VideoPage = () => {
 	const [videodata, setVideoData] = useState<VideoType | null>(null);
 	const [uservideodata, setUserVideoData] = useState<VideoType[]>([]);
@@ -81,22 +85,24 @@ const VideoPage = () => {
 	return (
 		<>
 			<div
-				className={`${styles.single_video_conatiner} flex mx-20 p-4  justify-between`}
+				className={`${styles.routed_video_section} flex justify-between mx-20 p-4  `}
 			>
-				<div className="text-center margin-auto">
+				<div
+					className={`${styles.single_video_conatiner} text-center margin-auto`}
+				>
 					{videodata && (
 						<video
 							autoPlay
 							loop
 							muted
 							controls
-							className={`${styles.video} h-2/3 rounded`}
+							className={`${styles.video} rounded`}
 						>
 							<source src={videodata.videoFile} type="video/mp4" />
 						</video>
 					)}
 					<div
-						className={`${styles.video_details} lex flex-col border border-black-200 rounded`}
+						className={`${styles.video_details}  flex-col border border-black-200 rounded`}
 					>
 						<div>
 							<h1 className="text-lg font-medium text-wrap text-left">
@@ -115,8 +121,8 @@ const VideoPage = () => {
 										width={500}
 										height={500}
 										quality={10}
-										alt="Picture of the author"
-										className="w-14 h-14 rounded-full p-1 text-center"
+										alt="User Avatar"
+										className=" w-10 h-10 rounded-full p-1 text-center "
 									/>
 									<div className="self-center flex flex-col text-left p-2">
 										<h5 className="font-bold">
@@ -151,23 +157,24 @@ const VideoPage = () => {
 					</div>
 				</div>
 				<div className={styles.user_videos}>
-					<div className="flex flex-col justify-center gap-0">
+					<div
+						className={`${styles.video_check} flex flex-col justify-center gap-3`}
+					>
 						{uservideodata.map((item) => (
 							<div
 								key={item._id}
 								className={`${styles.user_videos_video} videocontrooler  text-center cursor-pointer`}
 								onClick={() => routeToIndividualVideo(item)}
 							>
-								<video
-									// autoPlay
-									loop
-									muted
-									className="cursor-pointer  border rounded"
-								>
+								<video loop muted className="cursor-pointer  border rounded">
 									<source src={item.videoFile} type="video/mp4" />
 								</video>
-								<div className="flex flex-col border border-black-200 rounded">
-									<div className="flex justify-start">
+								{/* <div
+									className={`${styles.videodetails} flex flex-col border border-black-200 rounded`}
+								>
+									<div
+										className={`${styles.videodetailswith_img} flex justify-start`}
+									>
 										<Image
 											src={
 												!Array.isArray(item.owner) &&
@@ -185,14 +192,61 @@ const VideoPage = () => {
 											{item.title}
 										</p>
 									</div>
-									<div className="flex flex-col justify-end items-start mx-10 text-gray-400 text-sm">
+									<div className="flex flex-row justify-start gap-2 mx-10 text-gray-400 text-sm">
 										<p>
 											{Array.isArray(item.owner)
 												? item.owner[0]?.username
 												: item.owner?.username}
 										</p>
+										<p>views</p> *<p>{dateOnVideoUploaded(item.createdAt)}</p>
+									</div>
+								</div> */}
+								<div className={styles.vediodetials_container}>
+									<div
+										className={`${styles.videodetails_alignment} flex flex-row  justify-between `}
+									>
+										<div className="flex justify-start ">
+											<Image
+												src={
+													!Array.isArray(item.owner) &&
+													typeof item.owner.avatar === "string"
+														? item.owner.avatar
+														: "/placeholder.jpg" // Provide a placeholder image URL or adjust as needed
+												}
+												width={500}
+												height={500}
+												quality={10}
+												alt="User Avatar"
+												className=" w-10 h-10 rounded-full p-1 text-center "
+											/>
+											<p className={`${styles.video_title} m-1 text-left `}>
+												{item.title}
+											</p>
+										</div>
+										<div className="">
+											<button>
+												<MoreVertIcon className=" mt-1" />
+											</button>
+										</div>
+									</div>
+
+									<div className="  flex  justify-start     mx-10  text-gray-400 text-sm">
+										<div className="flex">
+											<p>
+												{Array.isArray(item.owner)
+													? item.owner[0]?.username
+													: item.owner?.username}
+											</p>
+											<span className="text-center mx-1">
+												<DoneIcon className={styles.autorizeduser} />
+											</span>
+										</div>
+
 										<div className="flex justify-start gap-2">
-											<p>views</p>
+											<p> 101k views </p>
+											<span>
+												<FiberManualRecordIcon className={`${styles.dot}`} />
+											</span>
 											<p>{dateOnVideoUploaded(item.createdAt)}</p>
 										</div>
 									</div>
