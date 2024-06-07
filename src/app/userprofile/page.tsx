@@ -227,7 +227,7 @@ const Profile = () => {
 				<div
 					className={`${styles.cover_conatiner} flex justify-center  align-center  flex-col border `}
 				>
-					<div className="w-full realtive bg-red-500">
+					<div className="w-full realtive ">
 						{loading !== true ? (
 							<>
 								<Image
