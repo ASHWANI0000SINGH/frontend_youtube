@@ -18,12 +18,20 @@ import HorizontalRuleIcon from "@mui/icons-material/HorizontalRule";
 import { dev_url } from "@/url/hosturl";
 import { toast } from "react-hot-toast";
 import UseAuth from "../UseAuth";
+import { useDispatch } from "react-redux";
+import { setAuthState } from "@/redux/features/authSlice";
+import { useAppSelector } from "@/redux/store";
 
 const Navbar = () => {
 	const [showBottomProfile, setShowBottomProfile] = useState(false);
 	const router = useRouter();
 	const loggedInUser = useContext(UserContext);
+	const authState = useAppSelector((state) => state.auth.loggedInUser);
+	console.log("authstate", authState);
+
 	const { allowuser, setAllowUser } = UseAuth();
+	const dispatch = useDispatch();
+
 	// console.log("allow user from nav", allowuser);
 
 	const gotoProfile = () => {
@@ -49,12 +57,14 @@ const Navbar = () => {
 				}
 			);
 			if (result.data) {
+				dispatch(setAuthState(null));
+
 				localStorage.clear();
 				setAllowUser(false);
-				// router.push("/");
+				router.push("/");
 
 				toast.success("Succesfully Logged out"); // Displays a success message
-				window.location.href = "/";
+				// window.location.href = "/";
 			}
 			// console.log("Logged out", result.data);
 		} catch (error) {
@@ -95,7 +105,7 @@ const Navbar = () => {
 							<SettingsVoiceIcon className={styles.mic} />
 						</div>
 					</div>
-					{allowuser ? (
+					{authState !== null ? (
 						<>
 							<div className="flex justify-evenly gap-3">
 								<div className="cursor-pointer">
@@ -106,10 +116,15 @@ const Navbar = () => {
 								</div>
 								<div className="cursor-pointer w-10">
 									<Image
+										// src={
+										// 	loggedInUser?.loggedInUser &&
+										// 	typeof loggedInUser.loggedInUser.avatar === "string"
+										// 		? loggedInUser.loggedInUser.avatar
+										// 		: "https://placehold.co/20x20" // Provide a placeholder image URL or adjust as needed
+										// }
 										src={
-											loggedInUser?.loggedInUser &&
-											typeof loggedInUser.loggedInUser.avatar === "string"
-												? loggedInUser.loggedInUser.avatar
+											authState && typeof authState.avatar === "string"
+												? authState.avatar
 												: "https://placehold.co/20x20" // Provide a placeholder image URL or adjust as needed
 										}
 										width={800}
@@ -117,25 +132,8 @@ const Navbar = () => {
 										quality={10}
 										alt="logo in aimage"
 										className="w-6 h-6 rounded-full"
-										onClick={() => setShowBottomProfile(!showBottomProfile)}
+										onClick={gotoProfile}
 									/>
-									{showBottomProfile && (
-										<div className={`absolute ml-3 `}>
-											<div
-												className={`${styles.tooltipprofile}  text-xs p-1 relative   bg-white text-black  border-black rounded-full text-center`}
-											>
-												<AccountCircleIcon
-													// className="text-xl"
-													onClick={gotoProfile}
-												/>
-											</div>
-											{/* <div
-												className={`${styles.tooltiplogout}  text-xs p-1   text-red-400   border-black rounded-full text-center`}
-											>
-												<LogoutIcon onClick={logoutHandler} />
-											</div> */}
-										</div>
-									)}
 								</div>
 							</div>
 						</>

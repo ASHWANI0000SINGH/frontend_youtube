@@ -15,13 +15,22 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import UseAuth from "@/components/UseAuth";
 import EditModal from "@/components/EditModal/EditModal";
 import EditModal2 from "@/components/EditModal/EditModal2";
+import { useAppSelector } from "@/redux/store";
+import { useDispatch } from "react-redux";
+import {
+	updateAvatar,
+	updateCoverImage,
+	updateFullName,
+} from "@/redux/features/authSlice";
+import LoadingSpinner from "@/components/Loading/LoadingSpinner";
 
 const Profile = () => {
 	const [editfullname, setEditFullName] = useState(false);
 	const [editcoverimage, setEditCoverImage] = useState(false);
 	const [editavatar, setEditAvatar] = useState(false);
-
+	const dispatch = useDispatch();
 	const loggedInUser = useContext(UserContext);
+	const authState = useAppSelector((state) => state.auth.loggedInUser);
 
 	const [fullName, setFullName] = useState("");
 	const [coverformData, setCoverFormData] = useState<UpdateCoverImgType>({
@@ -52,7 +61,11 @@ const Profile = () => {
 					}
 				);
 				toast.success("Full Name Updated");
-				console.log("Full Name Updated", result.data);
+				console.log("result", result.data.data.fullName);
+				console.log("Full Name Updated", result.data.data.fullName);
+				console.log("type of full name", result.data.data.fullName);
+				dispatch(updateFullName(result.data.data.fullName));
+
 				setFullName("");
 			} catch (error) {
 				console.error("Error While Full Name Updated:", error);
@@ -105,6 +118,7 @@ const Profile = () => {
 				);
 				if (result.data) {
 					setLoading(false);
+					dispatch(updateCoverImage(result.data.data.coverImage));
 
 					toast.success("cover image updated");
 				}
@@ -139,12 +153,14 @@ const Profile = () => {
 						},
 					}
 				);
-				if (result.data) {
+				// if (result.data) {
+				if (result.data.data.avatar) {
 					setLoading2(false);
+					dispatch(updateAvatar(result.data.data.avatar));
 
 					toast.success("avatar image updated");
+					console.log("result avatar", result.data.data.avatar);
 				}
-				console.log("Avatar Image successfully updated", result);
 			} catch (error) {
 				console.error("Error while Avatar  Image:", error);
 			}
@@ -211,67 +227,38 @@ const Profile = () => {
 				<div
 					className={`${styles.cover_conatiner} flex justify-center  align-center  flex-col border `}
 				>
-					<div className="w-full realtive">
-						<Image
-							src={
-								loggedInUser?.loggedInUser &&
-								typeof loggedInUser.loggedInUser.coverImage === "string"
-									? loggedInUser.loggedInUser.coverImage
-									: "https://placehold.co/1200x450" // Provide a placeholder image URL or adjust as needed
-							}
-							width={500}
-							height={500}
-							quality={10}
-							alt={"looged in aimage"}
-							className={`${styles.coverimage} border  rounded-b rounded-t relative`}
-						/>
-
-						{/* <div className={styles.editcoverimg}>
-							{editcoverimage ? (
-								<>
-									<div>
-										<div>
-											<input
-												className={`${styles.coverImage_container_mobile} absolute  right-10  top-2`}
-												type="file"
-												name="coverImage"
-												onChange={handleFileChange}
-												placeholder="cover Image"
-											/>
-										</div>
-										<div>
-											<button
-												className={`${styles.coverImage_container_button} bg-black absolute right-7  text-white p-1 `}
-												type="submit"
-												onClick={updateCoverImageHandler}
-											>
-												Update
-											</button>
-										</div>
+					<div className="w-full realtive bg-red-500">
+						{loading !== true ? (
+							<>
+								<Image
+									src={
+										authState && typeof authState.coverImage === "string"
+											? authState.coverImage
+											: "https://placehold.co/1200x450" // Provide a placeholder image URL or adjust as needed
+									}
+									width={500}
+									height={500}
+									quality={10}
+									alt={"looged in aimage"}
+									className={`${styles.coverimage} border  rounded-b rounded-t relative`}
+								/>
+							</>
+						) : (
+							<>
+								<div
+									className={`${styles.coverimage} border  rounded-b rounded-t  text-center flex `}
+								>
+									<div className=" m-auto">
+										<LoadingSpinner />
 									</div>
-								</>
-							) : (
-								<>
-									{!loading && (
-										<button
-											type="button"
-											onClick={() => setEditCoverImage(true)}
-										>
-											<EditIcon />
-										</button>
-									)}
-								</>
-							)}
-							{loading && (
-								<p className="text-center absolute right-10 top-1 bg-white">
-									Uploading.....
-								</p>
-							)}
-						</div> */}
+								</div>
+							</>
+						)}
 
 						<div className={styles.editcoverimg}>
+							{/* <div className="absolute top-1  bg-red-200  "> */}
 							<button
-								className="text-center "
+								className="text-center bg-white border border-black "
 								onClick={handleEditButtonClickcover}
 							>
 								<EditIcon />
@@ -285,24 +272,87 @@ const Profile = () => {
 								/>
 							)}
 						</div>
+
+						<div className={`${styles.avatarconatainer} `}>
+							{loading2 !== true ? (
+								<>
+									<Image
+										src={
+											authState && typeof authState.avatar === "string"
+												? authState.avatar
+												: "https://placehold.co/60x60" // Provide a placeholder image URL or adjust as needed
+										}
+										width={200}
+										height={200}
+										quality={10}
+										alt="looged in aimage"
+										className={`${styles.avatar_image}  rounded-full relative border border-black `}
+									/>
+								</>
+							) : (
+								<>
+									<div
+										className={`${styles.avatar_image} rounded-full relative border border-black  flex`}
+									>
+										<div className=" m-auto">
+											<LoadingSpinner />
+										</div>
+									</div>
+								</>
+							)}
+
+							<div className={styles.editavatarImage}>
+								<button
+									className="bg-white"
+									onClick={handleEditButtonClickAvatar}
+								>
+									<EditIcon />
+								</button>
+							</div>
+							{editavatar && (
+								<EditModal2
+									onClose={handleCloseModalAvatar}
+									changehandler={handleFileChange}
+									submitHandler={updateAvatarImageHandler}
+									avatar={"avatar"}
+								/>
+							)}
+						</div>
 					</div>
-					<div className={`${styles.avatarconatainer} `}>
-						<Image
-							src={
-								loggedInUser?.loggedInUser &&
-								typeof loggedInUser.loggedInUser.avatar === "string"
-									? loggedInUser.loggedInUser.avatar
-									: "https://placehold.co/60x60" // Provide a placeholder image URL or adjust as needed
-							}
-							width={200}
-							height={200}
-							quality={10}
-							alt="looged in aimage"
-							className={`${styles.avatar_image}  rounded-full relative border border-black `}
-						/>
+					{/* <div className={`${styles.avatarconatainer} `}>
+						{loading2 !== true ? (
+							<>
+								<Image
+									src={
+										authState && typeof authState.avatar === "string"
+											? authState.avatar
+											: "https://placehold.co/60x60" // Provide a placeholder image URL or adjust as needed
+									}
+									width={200}
+									height={200}
+									quality={10}
+									alt="looged in aimage"
+									className={`${styles.avatar_image}  rounded-full relative border border-black `}
+								/>
+							</>
+						) : (
+							<>
+								<div
+									className={`${styles.avatar_image} rounded-full relative border border-black  flex`}
+								>
+									
+									<div className=" m-auto">
+										<LoadingSpinner />
+									</div>
+								</div>
+							</>
+						)}
 
 						<div className={styles.editavatarImage}>
-							<button onClick={handleEditButtonClickAvatar}>
+							<button
+								className="bg-white"
+								onClick={handleEditButtonClickAvatar}
+							>
 								<EditIcon />
 							</button>
 						</div>
@@ -314,13 +364,13 @@ const Profile = () => {
 								avatar={"avatar"}
 							/>
 						)}
-					</div>
+					</div> */}
 					<div className={styles.about_container}>
 						{!editfullname ? (
 							<>
 								<h1 className=" mx-7 text-lg font-semibold">
-									{loggedInUser && loggedInUser.loggedInUser?.fullName
-										? loggedInUser.loggedInUser?.fullName
+									{authState && authState?.fullName
+										? authState?.fullName
 										: "null"}
 								</h1>
 								<div>

@@ -10,6 +10,8 @@ import { Button } from "@/components/ui/button";
 import styles from "./login.module.css";
 import Link from "next/link";
 import { toast } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { setAuthState } from "@/redux/features/authSlice";
 
 const Page: React.FC = () => {
 	const [formData, setFormData] = useState<loginDataType>({
@@ -18,6 +20,7 @@ const Page: React.FC = () => {
 	});
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(false);
+	const dispatch = useDispatch();
 	const LoginRefBtn: React.RefObject<HTMLButtonElement> =
 		useRef<HTMLButtonElement>(null);
 	const { setAllowUser } = UseAuth();
@@ -40,7 +43,10 @@ const Page: React.FC = () => {
 					},
 				});
 
-				if (result.data) {
+				console.log("result", result.status);
+				if (result.status === 200) {
+					console.log("result", result.data.user.loggedInUser);
+					dispatch(setAuthState(result.data.user.loggedInUser));
 					toast.success("Succesfully Logged In"); // Displays a success message
 					setAllowUser(true);
 					setLoading(false);
@@ -49,8 +55,9 @@ const Page: React.FC = () => {
 						"loggedInUser",
 						JSON.stringify(result.data.user.loggedInUser)
 					);
+
 					localStorage.setItem("accessToken", result.data.user.accessToken);
-					window.location.href = "/";
+					router.push("/");
 				}
 			} catch (error) {
 				setLoading(false);

@@ -6,9 +6,12 @@ import { VideoType } from "@/app/allinterface";
 import { dev_url } from "@/url/hosturl";
 import styles from "./AllVideo.module.css";
 import { useQuery } from "@tanstack/react-query";
+import { useDispatch } from "react-redux";
+import { setVideoState } from "@/redux/features/videoslice";
 
 const AllVideo = () => {
 	const [videoData, setVideoData] = useState<VideoType[]>([]);
+	const dispatch = useDispatch();
 	// useEffect(() => {
 	// 	getAllVideo();
 	// }, []);
@@ -16,6 +19,8 @@ const AllVideo = () => {
 		const result = await axios(`${dev_url}/video/fetch-allvideo`);
 		// console.log("all video", result);
 		// setVideoData(result.data.data);
+		dispatch(setVideoState(result.data.data));
+
 		return result.data.data;
 	};
 

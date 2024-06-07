@@ -3,23 +3,28 @@
 }
 .avatarconatainer {
 	position: absolute;
-	left: 130px;
-	bottom: 100px;
+	/* left: 130px; */
+	/* left: 8.125em; */
+	/* bottom: 100px; */
+	/* bottom: 6.25em; */
+	top: 14em;
 }
 .coverimage {
 	width: 800px;
-	height: 300px;
+
+	/* height: 300px; */
+	height: 50vh;
 }
 .editcoverimg {
 	position: absolute;
-	background-color: white;
-	top: 110px;
-	left: 850px;
-	/* width: 30px; */
-	/* height: 30px; */
-	text-align: center;
+	background-color: rgb(16, 8, 8);
+	/* top: 110px; */
+	/* top: 19vh; */
+	top: 6.575em;
+	/* left: 850px; */
+	left: 53.5em;
 
-	/* border-radius: 100px; */
+	text-align: center;
 }
 .about_container {
 	display: flex;
@@ -63,40 +68,58 @@
 .editavatarImage {
 	/* background-color: red; */
 	/* color: white; */
-	border: white;
+	position: absolute;
+	/* color: yellow; */
+	/* border: white; */
 	border: 1px solid white;
 	position: absolute;
-	top: 150px;
-	left: 130px;
+	/* top: 150px; */
+	/* left: 130px; */
+	top: 2em;
+	left: 9em;
+	/* z-index: 101; */
 }
 @media only screen and (max-width: 450px) {
 	.userprofile_container {
+		/* border-color: #dfdfdf; */
+		/* height: 80vh; */
+		scroll-behavior: auto;
+	}
+	.userprofile_container {
 		/* height: 70vh; */
 		/* background-color: green; */
+		height: 44em;
 		flex-direction: column;
-		height: 50vh;
+		margin-top: -100px;
+		/* height:  */
 	}
-	.cover_conatiner {
+	.about_container {
+		margin-top: 40px;
 		/* background-color: green; */
-		/* border: 100px solid black; */
 	}
+
 	.coverimage {
-		height: 20vh;
+		/* height: 20vh; */
+		height: 10.5em;
+
 		/* background-color: yellow; */
 	}
-	.editcoverimg {
-		/* left: 325px; */
-		left: calc(100% - 50px);
-		/* total 375 px =100% */
-		/* cover container width 325px */
-	}
+
 	.avatarconatainer {
-		position: absolute;
-		left: 6vh;
-		bottom: 60vh;
+		/* width: 100vw; */
+		/* position: absolute; */
+		/* justify-content: center; */
+		/* left: 3.75em; */
+		/* bottom: 100px; */
+		/* bottom: 37.5em; */
+		/* left: 6vh;
+		bottom: 60vh; */
 		/* width: 60px;
 		height: 60px; */
 		/* background-color: red; */
+		/* top: 100px; */
+		top: 10em;
+		/* top: calc(100% - 10vh); */
 	}
 
 	.avatar_image {
@@ -125,9 +148,15 @@
 	}
 	.editcoverimg {
 		position: absolute;
-		background-color: white;
+		/* background-color: white; */
 		/* top: 110px; */
-		left: 300px;
+		/* left: 300px; */
+		left: calc(100% - 3.2rem);
+		top: 5em;
+		/* color: black; */
+
+		/* background-color: red; */
+
 		/* width: 30px; */
 		/* height: 30px; */
 		text-align: center;
@@ -139,7 +168,9 @@
 		top: 10px;
 	}
 	.editavatarImage {
-		top: 26px;
-		left: 60px;
+		/* top: 26px;
+		left: 60px; */
+		top: 1em;
+		left: 3.6em;
 	}
 }

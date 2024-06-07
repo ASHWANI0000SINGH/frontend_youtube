@@ -6,12 +6,15 @@ import { UpdateUserDetailsType } from "@/app/allinterface";
 import { dev_url } from "@/url/hosturl";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { updateEmail, updateUserName } from "@/redux/features/authSlice";
+import { useDispatch } from "react-redux";
 
 const Page: React.FC = () => {
 	const [formData, setFormData] = useState<UpdateUserDetailsType>({
 		email: "",
 		username: "",
 	});
+	const dispatch = useDispatch();
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -32,7 +35,11 @@ const Page: React.FC = () => {
 					}
 				);
 				toast.success("user details succesfully modifies");
-				console.log("user details changed", result.data);
+				// console.log("result", result.data);
+				dispatch(updateEmail(result.data.data.email));
+				dispatch(updateUserName(result.data.data.username));
+
+				// console.log("user details changed", result.data);
 				setFormData({
 					email: "",
 					username: "",

@@ -5,6 +5,7 @@ import { dev_url } from "@/url/hosturl";
 import toast from "react-hot-toast";
 import Image from "next/image";
 import styles from "./EditModal.module.css";
+import { useAppSelector } from "@/redux/store";
 
 interface EditModalProps {
 	onClose: () => void;
@@ -20,6 +21,8 @@ const EditModal: React.FC<EditModalProps> = ({
 	coverImage,
 }) => {
 	console.log("cover", coverImage);
+	const authState = useAppSelector((state) => state.auth.loggedInUser);
+	console.log("authsatte", authState);
 
 	return (
 		<div className={styles.modal_overlay}>
@@ -28,13 +31,25 @@ const EditModal: React.FC<EditModalProps> = ({
 					X
 				</button>
 				<div className={`${styles.mobile_responsive_image} mt-5`}>
-					<Image
+					{/* <Image
 						src="https://placehold.co/1200x450"
 						width={500}
 						height={500}
 						quality={10}
 						alt={"looged in aimage"}
 						className={`${styles.coverimage} border  rounded-b rounded-t relative`}
+					/> */}
+					<Image
+						src={
+							authState && typeof authState.coverImage === "string"
+								? authState.coverImage
+								: "https://placehold.co/1200x450" // Provide a placeholder image URL or adjust as needed
+						}
+						width={300}
+						height={200}
+						quality={10}
+						alt={"looged in aimage"}
+						className={`${styles.coverimage} w-full h-1/2 border  rounded-b rounded-t relative`}
 					/>
 				</div>
 				<div className="flex justify-center flex-col items-center  mt-10">

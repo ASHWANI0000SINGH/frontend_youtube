@@ -9,13 +9,18 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import DoneIcon from "@mui/icons-material/Done";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
+import { useAppSelector } from "@/redux/store";
 // const Video = ({ videoData }: VideoType) => {
 const Video: React.FC<{
 	videoData: VideoType[];
 	isLoading: boolean;
 	isError: boolean;
 }> = ({ videoData, isLoading, isError }) => {
-	let loggedInUser = useContext(UserContext);
+	// let loggedInUser = useContext(UserContext);
+	const loggedInUser = useAppSelector((state) => state.auth.loggedInUser);
+	console.log("loggedInUser from Home", loggedInUser);
+
+	// let loggedInUser= React.use
 	const router = useRouter();
 	const dateOnVideoUploaded = (createdAt: string) => {
 		const uploadDate = new Date(createdAt);
@@ -24,7 +29,7 @@ const Video: React.FC<{
 		return `${month}/${day}`; // Return formatted date (MM/DD)
 	};
 	const routeToIndividualVideo = (item: VideoType) => {
-		if (!loggedInUser?.loggedInUser) {
+		if (!loggedInUser) {
 			toast.error("Please Login to watch "); // Displays a error message
 		} else {
 			router.push(`/video/${item?._id}`);
@@ -74,7 +79,7 @@ const Video: React.FC<{
 						return (
 							<>
 								<div
-									className={`${styles.videocontrooler}  text-center  m-2 p-2 cursor-pointer `}
+									className={`${styles.videocontrooler}  text-center  m-1 p-1 cursor-pointer `}
 									onClick={() => routeToIndividualVideo(item)}
 								>
 									<video
@@ -105,7 +110,7 @@ const Video: React.FC<{
 														Array.isArray(item.owner) &&
 														typeof item.owner[0].avatar === "string"
 															? item.owner[0].avatar
-															: "/placeholder.jpg" // Provide a placeholder image URL or adjust as needed
+															: "https://placehold.co/20x20" // Provide a placeholder image URL or adjust as needed
 													}
 													width={500}
 													height={500}
