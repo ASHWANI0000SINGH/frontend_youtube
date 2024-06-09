@@ -18,7 +18,7 @@ const Video: React.FC<{
 }> = ({ videoData, isLoading, isError }) => {
 	// let loggedInUser = useContext(UserContext);
 	const loggedInUser = useAppSelector((state) => state.auth.loggedInUser);
-	console.log("loggedInUser from Home", loggedInUser);
+	// console.log("loggedInUser from Home", loggedInUser);
 
 	// let loggedInUser= React.use
 	const router = useRouter();
@@ -40,7 +40,7 @@ const Video: React.FC<{
 	) => {
 		const vid = e.target as HTMLVideoElement;
 		if (window.innerWidth > 450) {
-			console.log("window inner width", window.innerWidth);
+			// console.log("window inner width", window.innerWidth);
 			vid.muted = true;
 			vid.defaultMuted = true;
 			vid.play();
@@ -79,6 +79,7 @@ const Video: React.FC<{
 						return (
 							<>
 								<div
+									key={item._id}
 									className={`${styles.videocontrooler}  text-center  m-1 p-1 cursor-pointer `}
 									onClick={() => routeToIndividualVideo(item)}
 								>

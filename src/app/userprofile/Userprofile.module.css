@@ -66,19 +66,11 @@
 }
 
 .editavatarImage {
-	/* background-color: red; */
-	/* color: white; */
-	position: absolute;
-	/* color: yellow; */
-	/* border: white; */
-	border: 1px solid white;
-	position: absolute;
-	/* top: 150px; */
-	/* left: 130px; */
-	top: 2em;
-	left: 9em;
-	/* z-index: 101; */
+	background-color: none;
 }
+/* .editavatarImage:hover {
+	background-color: none;
+} */
 @media only screen and (max-width: 450px) {
 	.userprofile_container {
 		/* border-color: #dfdfdf; */
@@ -168,9 +160,14 @@
 		top: 10px;
 	}
 	.editavatarImage {
+		background-color: red;
+	}
+
+	.editavatarImage:hover {
+		background-color: none;
+		border: none;
+		border-radius: 100px;
 		/* top: 26px;
 		left: 60px; */
-		top: 1em;
-		left: 3.6em;
 	}
 }

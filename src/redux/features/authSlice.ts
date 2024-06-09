@@ -56,4 +56,4 @@ export const {
 export const authReducer = authSlice.reducer;
 
 // Optional: Logging initial state for debugging
-console.log("Initial state from reducer", initialState);
+// console.log("Initial state from reducer", initialState);

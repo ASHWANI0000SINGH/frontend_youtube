@@ -9,17 +9,24 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
 import Image from "next/image";
-import { VideoType } from "@/app/allinterface";
+import { CommentDataType, VideoType } from "@/app/allinterface";
 import { dev_url } from "@/url/hosturl";
 import styles from "./video.module.css";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DoneIcon from "@mui/icons-material/Done";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+import Comment from "@/components/Comment/Comment";
+import { useAppSelector } from "@/redux/store";
+import toast from "react-hot-toast";
 
 const VideoPage = () => {
 	const [videodata, setVideoData] = useState<VideoType | null>(null);
 	const [uservideodata, setUserVideoData] = useState<VideoType[]>([]);
 	const [loading, setLoading] = useState(true);
+	const [likes, setLikes] = useState(0);
+	const authState = useAppSelector((state) => state.auth.loggedInUser);
+	const [fetchTrigger, setFetchTrigger] = useState(false);
+
 	const router = useRouter();
 	const params = useParams<{
 		[x: string]: any;
@@ -67,6 +74,19 @@ const VideoPage = () => {
 		fetchUserVideos();
 	}, [params.id]);
 
+	useEffect(() => {
+		const fetchAllLikesOnVideoId = async () => {
+			const result = await axios(`${dev_url}/likes/getAllLikes/${params.id}`, {
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+				},
+			});
+			setLikes(result.data.data.length);
+			console.log("likes result", result.data.data.length);
+		};
+		fetchAllLikesOnVideoId();
+	}, [fetchTrigger, params.id]);
+
 	if (loading) {
 		return <p className="text-center">Loading...</p>;
 	}
@@ -80,6 +100,33 @@ const VideoPage = () => {
 
 	const routeToIndividualVideo = (item: VideoType) => {
 		router.push(`/video/${item?._id}`);
+	};
+	const addLikesHandler = async () => {
+		try {
+			const userId = authState?._id;
+
+			const payload = {
+				// video:params._id
+				likedBy: userId,
+			};
+
+			const result = await axios.post(
+				`${dev_url}/likes/addLikes/${params.id}`,
+				payload,
+				{
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+					},
+				}
+			);
+			toast.success("Liked a Video"); // Displays a success message
+
+			setFetchTrigger(!fetchTrigger);
+
+			console.log("added like", result);
+		} catch (error) {
+			console.log("error", error);
+		}
 	};
 
 	return (
@@ -137,13 +184,19 @@ const VideoPage = () => {
 									</div>
 								</div>
 								<div className="flex gap-5 self-center">
-									<div>
-										<button>
-											<ThumbUpOffAltIcon />
-										</button>
-										<button>
-											<ThumbDownOffAltIcon />
-										</button>
+									<div className=" flex gap-6">
+										<div>
+											<button onClick={addLikesHandler}>
+												<ThumbUpOffAltIcon />
+											</button>
+											{likes}
+										</div>
+										<div>
+											<button>
+												<ThumbDownOffAltIcon />
+											</button>
+											{"10"}
+										</div>
 									</div>
 									<div>
 										<ScreenShareIcon />
@@ -155,7 +208,13 @@ const VideoPage = () => {
 							</div>
 						</div>
 					</div>
+					<div>
+						<h1 className="text-center bg-red-500"> comments</h1>
+
+						<Comment />
+					</div>
 				</div>
+
 				<div className={styles.user_videos}>
 					<div
 						className={`${styles.video_check} flex flex-col justify-center gap-3`}

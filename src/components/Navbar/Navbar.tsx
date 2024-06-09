@@ -27,7 +27,7 @@ const Navbar = () => {
 	const router = useRouter();
 	const loggedInUser = useContext(UserContext);
 	const authState = useAppSelector((state) => state.auth.loggedInUser);
-	console.log("authstate", authState);
+	// console.log("authstate", authState);
 
 	const { allowuser, setAllowUser } = UseAuth();
 	const dispatch = useDispatch();

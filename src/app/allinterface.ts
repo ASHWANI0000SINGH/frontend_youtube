@@ -58,3 +58,12 @@ export interface UpdateCoverImgType {
 //     coverImage: File | string;
 //     _id: string;
 //   }
+
+export interface CommentDataType {
+	comment: string;
+	views?: string;
+	likes?: string;
+	owner: string;
+	video: string;
+	_id?: string;
+}

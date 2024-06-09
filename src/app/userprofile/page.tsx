@@ -276,18 +276,23 @@ const Profile = () => {
 						<div className={`${styles.avatarconatainer} `}>
 							{loading2 !== true ? (
 								<>
-									<Image
-										src={
-											authState && typeof authState.avatar === "string"
-												? authState.avatar
-												: "https://placehold.co/60x60" // Provide a placeholder image URL or adjust as needed
-										}
-										width={200}
-										height={200}
-										quality={10}
-										alt="looged in aimage"
-										className={`${styles.avatar_image}  rounded-full relative border border-black `}
-									/>
+									<button
+										className={styles.editavatarImage}
+										onClick={handleEditButtonClickAvatar}
+									>
+										<Image
+											src={
+												authState && typeof authState.avatar === "string"
+													? authState.avatar
+													: "https://placehold.co/60x60" // Provide a placeholder image URL or adjust as needed
+											}
+											width={200}
+											height={200}
+											quality={10}
+											alt="looged in aimage"
+											className={`${styles.avatar_image}  rounded-full relative border border-black `}
+										/>
+									</button>
 								</>
 							) : (
 								<>
@@ -301,14 +306,14 @@ const Profile = () => {
 								</>
 							)}
 
-							<div className={styles.editavatarImage}>
+							{/* <div className={styles.editavatarImage}>
 								<button
 									className="bg-white"
 									onClick={handleEditButtonClickAvatar}
 								>
 									<EditIcon />
 								</button>
-							</div>
+							</div> */}
 							{editavatar && (
 								<EditModal2
 									onClose={handleCloseModalAvatar}
