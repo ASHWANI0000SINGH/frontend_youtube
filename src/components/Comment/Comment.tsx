@@ -7,6 +7,8 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Comment = () => {
 	const [comment, setComment] = useState("");
@@ -17,6 +19,9 @@ const Comment = () => {
 	}>();
 	const [fetchTrigger, setFetchTrigger] = useState(false);
 	const [showcomment, setShowComment] = useState(false);
+	const [openPopUp, SetOpenPopUp] = useState(false);
+	const [showAddCommentButtons, setShowAddCommentButtons] = useState(false);
+
 	const [showpopUpId, setShowPopUpId] = useState<string | undefined>();
 
 	const userId = useAppSelector((state) => state.auth?.loggedInUser?._id);
@@ -39,51 +44,70 @@ const Comment = () => {
 		};
 		fetchAllComments();
 	}, [params?.id, fetchTrigger]);
+
+	const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+		setShowAddCommentButtons(true);
+		setComment(e.target.value);
+	};
 	const submitHandler = async () => {
-		const payload = {
-			comment: comment,
-			owner: userId,
-			video: params?.id,
-		};
-		console.log("payload", payload);
+		try {
+			const payload = {
+				comment: comment,
+				owner: userId,
+				video: params?.id,
+			};
+			console.log("payload", payload);
 
-		const result = await axios.post(
-			`${dev_url}/comments/addComments/${params?.id}`,
+			const result = await axios.post(
+				`${dev_url}/comments/addComments/${params?.id}`,
 
-			payload,
-			{
-				headers: {
-					Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-				},
+				payload,
+				{
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+					},
+				}
+			);
+			if (result.data) {
+				toast.success("Comment Succesfully Added"); // Displays a success message
+				setFetchTrigger(!fetchTrigger); // Toggle fetchTrigger to refetch comments
 			}
-		);
-		if (result.data) {
-			toast.success("Comment Succesfully Added"); // Displays a success message
-			setFetchTrigger(!fetchTrigger); // Toggle fetchTrigger to refetch comments
+			console.log("result", result);
+		} catch (error) {
+			// Displays a success message
+
+			console.log("error", error);
 		}
-		console.log("result", result);
 	};
 	const popUpHandler = (item: CommentDataType) => {
 		if (item) {
 			const id = item?._id;
 			setShowPopUpId(id);
 			console.log("id", typeof id);
+			SetOpenPopUp(!openPopUp);
 		}
 	};
 	const deleteHandler = async (item: CommentDataType) => {
 		// console.log("item", id);
-		const commentId = item._id;
-		const result = await axios.delete(
-			`${dev_url}/comments/deleteComment/${commentId}`,
+		try {
+			const commentId = item._id;
+			const result = await axios.delete(
+				`${dev_url}/comments/deleteComment/${commentId}`,
 
-			{
-				headers: {
-					Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-				},
-			}
-		);
-		console.log("result", result);
-		setFetchTrigger(!fetchTrigger); // Toggle fetchTrigger to refetch comments
+				{
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+					},
+				}
+			);
+			console.log("result", result);
+			setFetchTrigger(!fetchTrigger);
+			toast.success("Comment deleted"); // Displays a success message
+			// Toggle fetchTrigger to refetch comments
+		} catch (error) {
+			toast.error("you can only delete your own comments");
+			console.log("error", error);
+		}
 
 		// fetchAllComments();
 	};
@@ -109,30 +133,40 @@ const Comment = () => {
 
 	return (
 		<>
-			<div className="">
+			<div className=" mx-1">
+				<h1 className="text-center bg-red-500"> comments</h1>
+
 				<textarea
 					className="w-full h-7 border  border-black"
 					// name="comment"
 					value={comment}
 					id=""
 					placeholder=" Add Comment"
-					onChange={(e) => setComment(e.target.value)}
+					// onChange={(e) => setComment(e.target.value)}
+					onChange={handleChange}
 				/>
 				<br />
-				<div className="flex justify-end gap-4">
-					<button className="" type="button">
-						Cancel
-					</button>
-					<button
-						className="bg-blue-700 border rounded p-1 text-white border-black"
-						onClick={submitHandler}
-					>
-						Add Comment
-					</button>
-				</div>
+				{showAddCommentButtons && (
+					<div className="flex justify-end gap-4">
+						<button
+							className="text-xs p-1 m-1"
+							type="button"
+							onClick={() => setShowAddCommentButtons(false)}
+						>
+							Cancel
+						</button>
+						<button
+							className="bg-blue-700 text-white border text-xs p-1 m-1 rounded border-black"
+							// className="bg-blue-700 border rounded text-xs p-1 m-1 text-white border-black"
+							onClick={submitHandler}
+						>
+							Add Comment
+						</button>
+					</div>
+				)}
 				<div className="  ">
 					<div className="flex justify-between">
-						<h1> {videoComment.length} Comments</h1>
+						<h1> {videoComment.length} Comment</h1>
 						<div>
 							<button
 								className="bg-gray-500 text-white border text-xs p-1 m-1 rounded border-black"
@@ -151,19 +185,33 @@ const Comment = () => {
 									<div key={item._id} className="border border-black m-1 p-1 ">
 										<div className="flex justify-between ">
 											<p>image</p>
-											<div>
-												<button onClick={() => popUpHandler(item)}>:</button>
-											</div>
-											{showpopUpId === item._id && (
-												<div className="flex gap-2">
-													<button onClick={() => editHandler(item)}>
-														<EditIcon />
-													</button>
-													<button onClick={() => deleteHandler(item)}>
-														<DeleteIcon />
-													</button>
+											<div className="flex  justify-between gap-2 ">
+												{showpopUpId === item._id && openPopUp && (
+													<div className="flex gap-1">
+														<button onClick={() => editHandler(item)}>
+															<EditIcon />
+														</button>
+														<button onClick={() => deleteHandler(item)}>
+															<DeleteIcon />
+														</button>
+													</div>
+												)}
+												<div>
+													{openPopUp && showpopUpId === item._id ? (
+														<>
+															<button onClick={() => popUpHandler(item)}>
+																<CloseIcon />
+															</button>
+														</>
+													) : (
+														<>
+															<button onClick={() => popUpHandler(item)}>
+																<MoreVertIcon />
+															</button>
+														</>
+													)}
 												</div>
-											)}
+											</div>
 										</div>
 										<p className="text-left">{item.comment}</p>
 									</div>

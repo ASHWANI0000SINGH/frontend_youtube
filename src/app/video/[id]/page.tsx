@@ -24,6 +24,18 @@ const VideoPage = () => {
 	const [uservideodata, setUserVideoData] = useState<VideoType[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [likes, setLikes] = useState(0);
+	const [disikes, setDisLikes] = useState(0);
+	const [copied, setCopied] = useState(false);
+
+	// const handleCopy = () => {
+	//   navigator.clipboard.writeText(textToCopy)
+	// 	.then(() => {
+	// 	  setCopied(true);
+	// 	  setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
+	// 	})
+	// 	.catch(err => console.error('Failed to copy text: ', err));
+	// };
+
 	const authState = useAppSelector((state) => state.auth.loggedInUser);
 	const [fetchTrigger, setFetchTrigger] = useState(false);
 
@@ -84,6 +96,19 @@ const VideoPage = () => {
 			setLikes(result.data.data.length);
 			console.log("likes result", result.data.data.length);
 		};
+		const fetchAllDisLikesOnVideoId = async () => {
+			const result = await axios(
+				`${dev_url}/dislikes/getAlldislikes/${params.id}`,
+				{
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+					},
+				}
+			);
+			console.log("dlikes result", result.data.data.length);
+			setDisLikes(result.data.data.length);
+		};
+		fetchAllDisLikesOnVideoId();
 		fetchAllLikesOnVideoId();
 	}, [fetchTrigger, params.id]);
 
@@ -125,8 +150,50 @@ const VideoPage = () => {
 
 			console.log("added like", result);
 		} catch (error) {
+			toast.error("already liked the video");
 			console.log("error", error);
 		}
+	};
+	const addDisLikesHandler = async () => {
+		try {
+			const userId = authState?._id;
+
+			const payload = {
+				// video:params._id
+				likedBy: userId,
+			};
+
+			const result = await axios.post(
+				`${dev_url}/dislikes/adddislikes/${params.id}`,
+				payload,
+				{
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+					},
+				}
+			);
+			toast.success("DisLiked a Video"); // Displays a success message
+
+			setFetchTrigger(!fetchTrigger);
+
+			console.log("disliked added", result);
+		} catch (error) {
+			toast.error("already  dis liked the video");
+			console.log("error", error);
+		}
+	};
+	const shareVideoLinkHandler = () => {
+		const url = `https://frontend-youtube.vercel.app/video/${params.id}`;
+		console.log("url", url);
+		toast.success("copied video url share it with your friends");
+
+		navigator.clipboard
+			.writeText(url)
+			.then(() => {
+				setCopied(true);
+				setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
+			})
+			.catch((err) => console.error("Failed to copy text: ", err));
 	};
 
 	return (
@@ -192,14 +259,14 @@ const VideoPage = () => {
 											{likes}
 										</div>
 										<div>
-											<button>
+											<button onClick={addDisLikesHandler}>
 												<ThumbDownOffAltIcon />
 											</button>
-											{"10"}
+											{disikes}
 										</div>
 									</div>
 									<div>
-										<ScreenShareIcon />
+										<ScreenShareIcon onClick={shareVideoLinkHandler} />
 									</div>
 									<div>
 										<MoreHorizIcon />
@@ -209,8 +276,6 @@ const VideoPage = () => {
 						</div>
 					</div>
 					<div>
-						<h1 className="text-center bg-red-500"> comments</h1>
-
 						<Comment />
 					</div>
 				</div>

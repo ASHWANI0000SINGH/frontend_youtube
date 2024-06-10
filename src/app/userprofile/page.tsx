@@ -431,10 +431,11 @@ const Profile = () => {
 					</div>
 
 					<div
+						onClick={logoutHandler}
 						className={`${styles.tooltiplogout}  text-xs  bg-red-500 text-white  p-2 border  border-b-gray-300 text-center cursor-pointer`}
 					>
 						{/* <button> */}
-						<LogoutIcon onClick={logoutHandler} />
+						<LogoutIcon />
 						{/* </button> */}
 					</div>
 				</div>
