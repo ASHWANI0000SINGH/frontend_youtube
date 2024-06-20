@@ -5,14 +5,7 @@
 	width: 640px;
 	height: 360px;
 }
-.subscribe_btn {
-	background-color: black;
-	color: white;
-	font-weight: 400;
-	border-radius: 100px 100px;
-	width: auto;
-	padding: 5px;
-}
+.
 .user_videos {
 	width: 400px;
 }
@@ -74,6 +67,20 @@
 	color: white;
 	padding: 1px;
 }
+.subscribe_btn {
+	background-color: black;
+	color: white;
+	font-weight: 400;
+	border-radius: 100px 100px;
+	width: auto;
+	padding: 5px;
+}
+.video_details_section_box1_1 {
+	/* background-color: yellow; */
+	display: flex;
+	align-items: center;
+}
+
 @media only screen and (max-width: 450px) {
 	.routed_video_section {
 		flex-direction: column;
@@ -122,5 +129,20 @@
 		margin: 0;
 		padding: 0;
 		justify-content: space-between;
+	}
+	.video_details_section {
+		flex-direction: column;
+		/* background-color: red; */
+		/* margin: 0 4px; */
+	}
+	.video_details_section_box1 {
+		justify-content: space-between;
+	}
+	.video_details_section_box2 {
+		justify-content: space-between;
+	}
+	.video_details_section_box1_1 {
+		display: flex;
+		align-items: center;
 	}
 }

@@ -9,6 +9,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import CloseIcon from "@mui/icons-material/Close";
+import Image from "next/image";
 
 const Comment = () => {
 	const [comment, setComment] = useState("");
@@ -37,7 +38,7 @@ const Comment = () => {
 					},
 				}
 			);
-			console.log("result", result.data.data);
+			console.log("comments ", result);
 			// if (result.data.data) {
 			setVideoComment(result.data.data);
 			// }
@@ -133,11 +134,11 @@ const Comment = () => {
 
 	return (
 		<>
-			<div className=" mx-1">
-				<h1 className="text-center bg-red-500"> comments</h1>
+			<div className=" ">
+				{/* <h1 className="text-center bg-red-500 border rounded"> comments</h1> */}
 
 				<textarea
-					className="w-full h-7 border  border-black"
+					className="w-full h-7 border rounded  border-black"
 					// name="comment"
 					value={comment}
 					id=""
@@ -147,7 +148,7 @@ const Comment = () => {
 				/>
 				<br />
 				{showAddCommentButtons && (
-					<div className="flex justify-end gap-4">
+					<div className="flex justify-end gap-4  ">
 						<button
 							className="text-xs p-1 m-1"
 							type="button"
@@ -165,7 +166,7 @@ const Comment = () => {
 					</div>
 				)}
 				<div className="  ">
-					<div className="flex justify-between">
+					<div className="flex justify-between  ">
 						<h1> {videoComment.length} Comment</h1>
 						<div>
 							<button
@@ -182,9 +183,37 @@ const Comment = () => {
 						videoComment.map((item) => {
 							return (
 								<>
-									<div key={item._id} className="border border-black m-1 p-1 ">
+									<div
+										key={item._id}
+										className="border border-black m-1 p-1 rounded  "
+									>
 										<div className="flex justify-between ">
-											<p>image</p>
+											<div className="flex gap-2">
+												<div>
+													<Image
+														src={
+															videoComment &&
+															item.userDetails?.avatar &&
+															// Array.isArray(item.userDetails) &&
+															typeof item.userDetails.avatar === "string"
+																? item.userDetails.avatar
+																: "https://placehold.co/20x20" // Provide a placeholder image URL or adjust as needed
+														}
+														width={500}
+														height={500}
+														quality={10}
+														alt="User Avatar"
+														className=" w-10 h-10 rounded-full p-1 text-center "
+													/>
+												</div>
+												<div>
+													<p className="text-left font-medium">
+														@{item.userDetails?.username}
+													</p>
+													<p className="text-left font-light">{item.comment}</p>
+												</div>
+											</div>
+
 											<div className="flex  justify-between gap-2 ">
 												{showpopUpId === item._id && openPopUp && (
 													<div className="flex gap-1">
@@ -213,7 +242,6 @@ const Comment = () => {
 												</div>
 											</div>
 										</div>
-										<p className="text-left">{item.comment}</p>
 									</div>
 								</>
 							);

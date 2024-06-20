@@ -66,4 +66,11 @@ export interface CommentDataType {
 	owner: string;
 	video: string;
 	_id?: string;
+	userDetails?: {
+		avatar: string;
+		coverImage: string;
+		email: string;
+		username: string;
+		_id: string;
+	};
 }

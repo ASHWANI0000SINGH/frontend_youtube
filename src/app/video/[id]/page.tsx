@@ -216,42 +216,52 @@ const VideoPage = () => {
 						</video>
 					)}
 					<div
-						className={`${styles.video_details}  flex-col border border-black-200 rounded`}
+						className={`${styles.video_details}  flex-col border border-black-200 rounded `}
 					>
-						<div>
+						<div className="m-1 p-1">
 							<h1 className="text-lg font-medium text-wrap text-left">
 								{videodata?.title}
 							</h1>
-							<div className="flex justify-between self-center">
-								<div className="flex justify-start gap-2 self-center">
-									<Image
-										src={
-											videodata &&
-											!Array.isArray(videodata.owner) &&
-											typeof videodata.owner.avatar === "string"
-												? videodata.owner.avatar
-												: "/placeholder.jpg" // Provide a placeholder image URL or adjust as needed
-										}
-										width={500}
-										height={500}
-										quality={10}
-										alt="User Avatar"
-										className=" w-10 h-10 rounded-full p-1 text-center "
-									/>
-									<div className="self-center flex flex-col text-left p-2">
-										<h5 className="font-bold">
-											{Array.isArray(videodata?.owner)
-												? videodata?.owner[0]?.username
-												: videodata?.owner?.username}
-										</h5>
-										<p className="font-light text-xs">156k subscribers</p>
+							<div
+								className={`${styles.video_details_section} flex justify-between `}
+							>
+								<div
+									className={`${styles.video_details_section_box1} flex justify-start gap-2   items-center  `}
+								>
+									<div className={styles.video_details_section_box1_1}>
+										<Image
+											src={
+												videodata &&
+												!Array.isArray(videodata.owner) &&
+												typeof videodata.owner.avatar === "string"
+													? videodata.owner.avatar
+													: "/placeholder.jpg" // Provide a placeholder image URL or adjust as needed
+											}
+											width={500}
+											height={500}
+											quality={10}
+											alt="User Avatar"
+											className=" w-10 h-10 rounded-full p-1 text-center "
+										/>
+										<div className="self-center flex flex-col text-left p-2">
+											<h5 className="font-bold">
+												{Array.isArray(videodata?.owner)
+													? videodata?.owner[0]?.username
+													: videodata?.owner?.username}
+											</h5>
+											<p className="font-light text-xs">156k subscribers</p>
+										</div>
 									</div>
 									<div className="self-center">
-										<button className="subscribe_btn">Subscribe</button>
+										<button className={styles.subscribe_btn}>Subscribe</button>
 									</div>
 								</div>
-								<div className="flex gap-5 self-center">
-									<div className=" flex gap-6">
+								<div
+									className={`${styles.video_details_section_box2} flex gap-5 items-center `}
+								>
+									<div
+										className={`${styles.video_like_dislike_container}  flex gap-6`}
+									>
 										<div>
 											<button onClick={addLikesHandler}>
 												<ThumbUpOffAltIcon />
@@ -293,38 +303,6 @@ const VideoPage = () => {
 								<video loop muted className="cursor-pointer  border rounded">
 									<source src={item.videoFile} type="video/mp4" />
 								</video>
-								{/* <div
-									className={`${styles.videodetails} flex flex-col border border-black-200 rounded`}
-								>
-									<div
-										className={`${styles.videodetailswith_img} flex justify-start`}
-									>
-										<Image
-											src={
-												!Array.isArray(item.owner) &&
-												typeof item.owner.avatar === "string"
-													? item.owner.avatar
-													: "/placeholder.jpg" // Provide a placeholder image URL or adjust as needed
-											}
-											width={500}
-											height={500}
-											quality={10}
-											alt="Picture of the author"
-											className="w-14 h-14 rounded-full p-1 text-center"
-										/>
-										<p className="text-lg font-medium  text-wrap text-left">
-											{item.title}
-										</p>
-									</div>
-									<div className="flex flex-row justify-start gap-2 mx-10 text-gray-400 text-sm">
-										<p>
-											{Array.isArray(item.owner)
-												? item.owner[0]?.username
-												: item.owner?.username}
-										</p>
-										<p>views</p> *<p>{dateOnVideoUploaded(item.createdAt)}</p>
-									</div>
-								</div> */}
 								<div className={styles.vediodetials_container}>
 									<div
 										className={`${styles.videodetails_alignment} flex flex-row  justify-between `}
