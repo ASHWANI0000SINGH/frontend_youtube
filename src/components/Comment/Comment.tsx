@@ -81,6 +81,7 @@ const Comment = () => {
 				}
 			);
 			if (result.data) {
+				setShowAddCommentButtons(false);
 				toast.success("Comment Succesfully Added"); // Displays a success message
 				setFetchTrigger(!fetchTrigger); // Toggle fetchTrigger to refetch comments
 			}
