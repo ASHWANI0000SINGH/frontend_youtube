@@ -26,11 +26,11 @@ export default function RootLayout({
 				<ReduxProvider>
 					<ReactQueryProvider>
 						<ThemeProvider>
-							{/* <Navbar /> */}
-							{/* <Toaster position="top-center" /> */}
+							<Navbar />
+							<Toaster position="top-center" />
 
 							{children}
-							{/* <SideNavbar /> */}
+							<SideNavbar />
 						</ThemeProvider>
 					</ReactQueryProvider>
 				</ReduxProvider>
